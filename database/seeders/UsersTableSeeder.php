@@ -14,14 +14,28 @@ class UsersTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $password = Hash::make('admin@2024');
+        $password1 = Hash::make('user@2024');
+        $password2 = Hash::make('admin@2024');
+
         $usersRecords = [
+            // user
             [
                 'id'=>1,
-                'user_name'=> 'Erick Mnyali',
-                'email'=> 'erick@geote.org',
-                'password'=> $password,
-                'image'=> '',
+                'name'=> 'Edgar Amedeus',
+                'email'=> 'edgar@email.com',
+                'password'=> $password1,
+                'type'=> 0,
+            
+            ],
+
+            // Admin
+            [
+                'id'=>2,
+                'name'=> 'Davies Amedeus',
+                'email'=> 'davies@email.com',
+                'password'=> $password2,
+                'type'=> 1,
+            
             ]
         ];
 
