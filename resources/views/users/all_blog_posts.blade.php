@@ -20,7 +20,7 @@
  
 
   <div class="container">
-    @if ($posts)
+    @if (@count($posts)>0 )
 
    
     <div class="table-responsive">

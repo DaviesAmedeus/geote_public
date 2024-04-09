@@ -95,6 +95,7 @@
                       <span>Edit News/Updates</span>
                     </a>
                   </li>
+                  
                   <li>
                     <a href="{{ route('user.allProjects') }}" class="nav-link px-3">
                       <span class="me-2"

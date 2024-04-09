@@ -31,7 +31,10 @@ class HomeController extends Controller
 
         $user = Auth::id();
         return view('users.dashboard',[
-            'total_posts'=>Post::where('user_id',$user)->count()
+            'total_posts'=>Post::where('user_id',$user)->count(),
+            'blog_posts'=>Post::where('user_id',$user)->where('category_id',1)->count(),
+            'updates'=>Post::where('user_id',$user)->where('category_id',2)->count(),
+            'projects'=>Post::where('user_id',$user)->where('category_id',3)->count()
         ]);
     }
 
@@ -87,7 +90,7 @@ class HomeController extends Controller
             [
                 'name'=>'required', 
                 'email'=>'required', 
-                'about'=>'max:500',
+                'about'=>'max:550',
                 'profile_pic' => [ File::image()->dimensions(Rule::dimensions()->maxWidth(400)->maxHeight(400)),],
 
             ]

@@ -24,7 +24,7 @@
           </div>
           
   
-          <div class="form-group p-3">
+            <div class="form-group p-3">
             {{-- <label for="postDescription">Description</label> --}}
             {{-- <input type="text" class="form-control" id="postDescription" placeholder="Write the description of the post"> --}}
               <textarea class="form-control-plaintext" name="post_intro" placeholder="Project description" id="post_intro" >{{ old('post_intro') }}</textarea>
@@ -32,6 +32,14 @@
               <span class="text-danger">{{ $message }}</span>
               @enderror
             </div>
+
+            <label for="inputSelect" class="form-label">Default select</label>
+            <select class="" aria-label="Default select" name="status" id="inputSelect">
+              <option selected="">Select option</option>
+              <option value="Completed">Completed</option>
+              <option value="Inprogress">Inprogress</option>
+              <option value="Pending">Pending</option>
+            </select>
   
           <div class="form-group p-3">
               <label for="postDescription">Content</label>

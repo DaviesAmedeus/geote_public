@@ -49,8 +49,9 @@ class ProjectController extends Controller
         $formfields = $request->validate(
             [
                 'post_title'=>'required', 
-                'post_intro'=>'required', 
+                'post_intro'=>'required|max:500', 
                 'post_content'=>'required',
+                'status' => 'in:Completed,Inprogress,Pending',
                 'post_picture' => ['required', File::image()->dimensions(Rule::dimensions()->maxWidth(800)->maxHeight(600)),],
 
             ]
@@ -106,7 +107,7 @@ class ProjectController extends Controller
         $formfields = $request->validate(
             [
                 'post_title'=>'required', 
-                'post_intro'=>'required', 
+                'post_intro'=>'required|max:250', 
                 'post_content'=>'required',
                 'post_picture' => [ File::image()->dimensions(Rule::dimensions()->maxWidth(800)->maxHeight(600)),],
 

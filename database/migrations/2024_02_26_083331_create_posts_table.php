@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('post_title');
             $table->text('post_intro');
             $table->text('post_content');
+            $table->enum('status', ['Completed', 'Inprogress', 'Pending'])->default('Inprogress');
             $table->text('post_picture')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

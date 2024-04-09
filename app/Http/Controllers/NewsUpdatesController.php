@@ -50,7 +50,7 @@ class NewsUpdatesController extends Controller
         $formfields = $request->validate(
             [
                 'post_title'=>'required', 
-                'post_intro'=>'required', 
+                'post_intro'=>'required|max:500', 
                 'post_content'=>'required',
                 'post_picture' => ['required', File::image()->dimensions(Rule::dimensions()->maxWidth(800)->maxHeight(600)),],
 
@@ -84,7 +84,7 @@ class NewsUpdatesController extends Controller
             'newsUpdate' => Post::findOrFail($id),
             'recentNewsUpdates'=> Post::where('category_id', 2)->take(3)->latest()->get(),
             'recentBlogPosts'=> Post::where('category_id', 1)->take(3)->latest()->get(),
-            
+            'recentProjects'=> Post::where('category_id', 3)->take(3)->latest()->get(),
     
           ]);
     }
@@ -109,7 +109,7 @@ class NewsUpdatesController extends Controller
         $formfields = $request->validate(
             [
                 'post_title'=>'required', 
-                'post_intro'=>'required', 
+                'post_intro'=>'required|max:500', 
                 'post_content'=>'required',
                 'post_picture' => [ File::image()->dimensions(Rule::dimensions()->maxWidth(800)->maxHeight(600)),],
 
