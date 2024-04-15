@@ -20,6 +20,9 @@ return new class extends Migration
             $table->text('post_content');
             $table->enum('status', ['Completed', 'Inprogress', 'Pending'])->default('Inprogress');
             $table->text('post_picture')->nullable();
+            $table->string('author_name')->nullable();
+            $table->text('author_photo')->nullable();
+            $table->text('author_desc')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();

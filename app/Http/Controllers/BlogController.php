@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Writer;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -46,7 +47,8 @@ class BlogController extends Controller
      */
     public function createblogpost()
     {
-        return view('blog.create_blog_post');
+        return view('blog.create_blog_post'
+    );
     }
 
     /**
@@ -63,6 +65,9 @@ class BlogController extends Controller
                 'post_intro'=>'required|max:500', 
                 'post_content'=>'required',
                 'post_picture' => ['required', File::image()->dimensions(Rule::dimensions()->maxWidth(800)->maxHeight(600)),],
+                'author_name'=>'max:55',
+                'author_photo' => ['required', File::image()->dimensions(Rule::dimensions()->maxWidth(400)->maxHeight(400)),],
+                'author_desc'=>'max:500', 
 
             ]
         );
@@ -70,6 +75,11 @@ class BlogController extends Controller
         if($request->hasFile('post_picture')){
             $formfields['post_picture'] = $request->file('post_picture')->
             store('post_pics', 'public');
+        }
+
+        if($request->hasFile('author_photo')){
+            $formfields['author_photo'] = $request->file('author_photo')->
+            store('author_photos', 'public');
         }
 
         

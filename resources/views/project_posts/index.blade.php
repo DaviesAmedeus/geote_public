@@ -42,7 +42,7 @@
               </div>
             </div>
 
-            <p>{{ $project->post_intro }}...</p>
+            <p>{{ $project->post_intro }}</p>
 
             <hr>
 
