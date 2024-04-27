@@ -23,5 +23,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Model::unguard();
         Paginator::useBootstrapFive();
+
+         
     }
 }

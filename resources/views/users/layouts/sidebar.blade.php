@@ -45,14 +45,14 @@
                       <span>Create Blog post</span>
                     </a>
                   </li>
-                  <li>
+                  {{-- <li>
                     <a href="{{ route('updates.create') }}" class="nav-link px-3">
                       <span class="me-2"
                         ><i class="bi bi-book-fill"></i
                       ></span>
                       <span>Create News/Updates</span>
                     </a>
-                  </li>
+                  </li> --}}
                   <li>
                     <a href="{{ route('projects.create') }}" class="nav-link px-3">
                       <span class="me-2"
@@ -87,14 +87,14 @@
                       <span>Edit blog posts</span>
                     </a>
                   </li>
-                  <li>
+                  {{-- <li>
                     <a href="{{ route('user.allUpdates') }}" class="nav-link px-3">
                       <span class="me-2"
                         ><i class="bi bi-book-fill"></i
                       ></span>
                       <span>Edit News/Updates</span>
                     </a>
-                  </li>
+                  </li> --}}
                   
                   <li>
                     <a href="{{ route('user.allProjects') }}" class="nav-link px-3">
@@ -138,6 +138,8 @@
               </a>
             </li>
           </ul>
+
+          
         </nav>
 
       </div>

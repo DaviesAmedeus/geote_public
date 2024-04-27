@@ -37,7 +37,7 @@
 
               <div class="meta d-flex align-items-center">
                 <div class="d-flex align-items-center">
-                  <i class="bi bi-person"></i> <span class="ps-2">{{ $post->user->name }}</span>
+                  <i class="bi bi-person"></i> <span class="ps-2">Written by {{ $post->author_name ? $post->author_name : $post->user->name}}</span>
                 </div>
                 <span class="px-3 text-black-50">/</span>
                 <div class="d-flex align-items-center">

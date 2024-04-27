@@ -24,7 +24,7 @@
 
             <div class="meta-top">
               <ul>
-                <li class="d-flex align-items-center"><i class="bi bi-person"></i> {{ $blogpost->user->name }}</li>
+                <li class="d-flex align-items-center"><i class="bi bi-person"></i>  <strong>{{ $blogpost->author_name ? $blogpost->author_name : $blogpost->user->name}}</strong></li>
                 <li class="d-flex align-items-center"><i class="bi bi-clock"></i><time datetime="2024-02-02">{{ date('jS M Y', strtotime($blogpost->created_at)) }}</time></li>
               </ul>
             </div><!-- End meta top -->
@@ -36,10 +36,12 @@
 
           </article><!-- End blog post -->
 
-        <div class="post-author d-flex align-items-center">
-                <img src="{{$blogpost->user->profile_pic ? asset('storage/' . $blogpost->user->profile_pic ) : asset('assets/img/blog/blog1.jpg') }}" class="rounded-circle flex-shrink-0" alt="">
+        <div class="post-author">
+          <h4 class="mb-3 text-muted">About the author</h4>
+                <div class=" d-flex align-items-center">
+                  <img src="{{$blogpost->author_photo ? asset('storage/' . $blogpost->author_photo ) : asset('storage'. $blogpost->user->profile_pic) }}" class="rounded-circle flex-shrink-0" alt="">
                 <div>
-                  <h4>{{ $blogpost->user->name }}</h4>
+                  <h4>{{ $blogpost->author_name ? $blogpost->author_name : $blogpost->user->name }}</h4>
                   <div class="social-links">
                     {{-- <a href="https://twitters.com/#"><i class="bi bi-twitter"></i></a>
                     <a href="https://facebook.com/#"><i class="bi bi-facebook"></i></a>
@@ -47,8 +49,9 @@
                       /i></a> --}}
                   </div>
                   <p>
-                  {{ $blogpost->user->about}}
+                  {{$blogpost->author_desc ? $blogpost->author_desc  : $blogpost->user->about}}
                   </p>
+                </div>
                 </div>
         </div><!-- End post author -->
         </div>

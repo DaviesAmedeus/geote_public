@@ -15,7 +15,7 @@
 
 
     
-    <title>User:Dashboard</title>
+    <title>User</title>
     <script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/ckeditor.js"></script>
     <style>
        .ck-editor__editable[role="textbox"] {

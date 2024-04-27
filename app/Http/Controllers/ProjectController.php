@@ -46,33 +46,41 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $formfields = $request->validate(
-            [
-                'post_title'=>'required', 
-                'post_intro'=>'required|max:500', 
-                'post_content'=>'required',
-                'status' => 'in:Completed,Inprogress,Pending',
-                'post_picture' => ['required', File::image()->dimensions(Rule::dimensions()->maxWidth(800)->maxHeight(600)),],
-
-            ]
-        );
-
-        if($request->hasFile('post_picture')){
-            $formfields['post_picture'] = $request->file('post_picture')->
-            store('post_pics', 'public');
-        }
-
         
 
-        $post= [
-            'user_id'=>Auth::id(),
-            'category_id' => 3 //Project category
-        ] + $formfields;
+        Post::validate($request);
+        $validated_entries = [
+            'post_title' => $request->input('post_title'),
+            'post_intro' => $request->input('post_intro'),
+            'status' => $request->input('status'),
 
-        // dd($post);
-        Post::create($post );
+            'post_content' => $request->input('post_content'),
+         
+            'author_name' => $request->input('author_name'),
+            
+            'user_id'=>Auth::user()->id,
+            'category_id'=> 3,
+            'author_desc' => $request->input('author_desc')
 
-        return redirect(route('projects.index'));
+        ];
+   
+
+        if($request->hasFile('post_picture')){
+    
+            $validated_entries['post_picture'] = $request->file('post_picture')->
+            store('post_pics', 'public');
+        }
+    
+        if($request->hasFile('author_photo')){
+            $validated_entries['author_photo'] = $request->file('author_photo')->
+            store('author_photos', 'public');
+        }
+        
+
+       
+        Post::create($validated_entries);
+
+        return back()->with('message', 'Project post created successfully!');
     }
 
     /**
@@ -104,37 +112,36 @@ class ProjectController extends Controller
     public function update(Request $request, string $id)
     {
 
-        $formfields = $request->validate(
-            [
-                'post_title'=>'required', 
-                'post_intro'=>'required|max:250', 
-                'post_content'=>'required',
-                'post_picture' => [ File::image()->dimensions(Rule::dimensions()->maxWidth(800)->maxHeight(600)),],
+        Post::validate($request);
+        $validated_entries = [
+            'post_title' => $request->input('post_title'),
+            'post_intro' => $request->input('post_intro'),
+            'status' => $request->input('status'),
 
-            ]
-        );
+            'post_content' => $request->input('post_content'),
+         
+            'author_name' => $request->input('author_name'),
+            
+            'user_id'=>Auth::user()->id,
+            'category_id'=> 3,
+            'author_desc' => $request->input('author_desc')
+
+        ];
+   
 
         if($request->hasFile('post_picture')){
-            $post = Post::findOrFail($id);
-
-            // This deletes the existing picture and clears the space
-            if($post->post_picture && Storage::disk('public')->exists($post->post_picture)) {
-                Storage::disk('public')->delete($post->post_picture);
-            }
-
-            // Places onother picture after the previous one being deleted
-            $formfields['post_picture'] = $request->file('post_picture')->
+    
+            $validated_entries['post_picture'] = $request->file('post_picture')->
             store('post_pics', 'public');
         }
-
+    
+        if($request->hasFile('author_photo')){
+            $validated_entries['author_photo'] = $request->file('author_photo')->
+            store('author_photos', 'public');
+        }
         
 
-        $post= [
-            'user_id'=>Auth::id(),
-            'category_id' => 3 //Blog post category
-        ] + $formfields;
-
-        Post::where('id', $id)->update($post);
+        Post::where('id', $id)->update($validated_entries);
 
         return redirect(route('user.allProjects'));
 

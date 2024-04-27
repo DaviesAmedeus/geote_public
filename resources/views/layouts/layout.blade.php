@@ -10,9 +10,9 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="{{ url('assets/img/geote.png') }}" rel="icon">
-  <link href="{{ url('assets/img/geote.png') }}" rel="apple-touch-icon">
-
+ <!-- Favicons -->
+ <link href="{{url('assets/img/geote.png')}}" rel="icon">
+ <link href="{{url('assets/img/geote.png')}}" rel="apple-touch-icon">
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,6 +25,8 @@
   <link href="{{ url('assets/vendor/aos/aos.css') }}" rel="stylesheet">
   <link href="{{ url('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
   <link href="{{ url('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+
+  
 
   <!-- Template Main CSS File -->
   <link href="{{ url('assets/css/main.css') }}" rel="stylesheet">

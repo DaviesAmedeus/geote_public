@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Writer;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -56,43 +57,38 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        // dd($request->file());
-
-        $formfields = $request->validate(
-            [
-                'post_title'=>'required', 
-                'post_intro'=>'required|max:500', 
-                'post_content'=>'required',
-                'post_picture' => ['required', File::image()->dimensions(Rule::dimensions()->maxWidth(800)->maxHeight(600)),],
-                'author_name'=>'max:55',
-                'author_photo' => ['required', File::image()->dimensions(Rule::dimensions()->maxWidth(400)->maxHeight(400)),],
-                'author_desc'=>'max:500', 
-
-            ]
-        );
+        
+        Post::validate($request);
+   
+        
+            $validated_entries = [
+                'post_title' => $request->input('post_title'),
+                'post_intro' => $request->input('post_intro'),
+                'post_content' => $request->input('post_content'),
+             
+                'author_name' => $request->input('author_name'),
+                
+                'user_id'=>Auth::user()->id,
+                'category_id'=> '1',
+                'author_desc' => $request->input('author_desc')
+            ];
 
         if($request->hasFile('post_picture')){
-            $formfields['post_picture'] = $request->file('post_picture')->
+        
+            $validated_entries['post_picture'] = $request->file('post_picture')->
             store('post_pics', 'public');
         }
 
         if($request->hasFile('author_photo')){
-            $formfields['author_photo'] = $request->file('author_photo')->
+            $validated_entries['author_photo'] = $request->file('author_photo')->
             store('author_photos', 'public');
         }
 
-        
+        Post::create(
+            $validated_entries
+            );
 
-        $post= [
-            'user_id'=>Auth::id(),
-            'category_id' => 1 //Blog post category
-        ] + $formfields;
-
-        // dd($post);
-        Post::create($post );
-
-        return redirect('/blog_section/blog')->with('message', 'Youve created a Post!');
+        return back()->with('message', 'Youve created a Post!');
 
     }
 
@@ -132,37 +128,35 @@ class BlogController extends Controller
     {
         
 
-        $formfields = $request->validate(
-            [
-                'post_title'=>'required', 
-                'post_intro'=>'required|max:500', 
-                'post_content'=>'required',
-                'post_picture' => [ File::image()->dimensions(Rule::dimensions()->maxWidth(800)->maxHeight(600)),],
+        Post::validate($request);
+   
+        
+        $validated_entries = [
+            'post_title' => $request->input('post_title'),
+            'post_intro' => $request->input('post_intro'),
+            'post_content' => $request->input('post_content'),
+         
+            'author_name' => $request->input('author_name'),
+            
+            'user_id'=>Auth::user()->id,
+            'category_id'=> '1',
+            'author_desc' => $request->input('author_desc')
+        ];
 
-            ]
-        );
+    if($request->hasFile('post_picture')){
+    
+        $validated_entries['post_picture'] = $request->file('post_picture')->
+        store('post_pics', 'public');
+    }
 
-        if($request->hasFile('post_picture')){
-            $post = Post::findOrFail($id);
-
-            // This deletes the existing picture and clears the space
-            if($post->post_picture && Storage::disk('public')->exists($post->post_picture)) {
-                Storage::disk('public')->delete($post->post_picture);
-            }
-
-            // Places onother picture after the previous one being deleted
-            $formfields['post_picture'] = $request->file('post_picture')->
-            store('post_pics', 'public');
-        }
-
+    if($request->hasFile('author_photo')){
+        $validated_entries['author_photo'] = $request->file('author_photo')->
+        store('author_photos', 'public');
+    }
         
 
-        $post= [
-            'user_id'=>Auth::id(),
-            'category_id' => 1 //Blog post category
-        ] + $formfields;
 
-        Post::where('id', $id)->update($post);
+        Post::where('id', $id)->update($validated_entries);
 
         return redirect(route('user.allposts'));
 
