@@ -5,6 +5,10 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
+var preloader = document.getElementById('preloader');
+preloader.textContent = "GEOTE";
+console.log(preloader);
+
 document.addEventListener('DOMContentLoaded', () => {
   "use strict";
 

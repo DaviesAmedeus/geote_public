@@ -10,9 +10,10 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
- <!-- Favicons -->
- <link href="{{url('assets/img/geote.png')}}" rel="icon">
- <link href="{{url('assets/img/geote.png')}}" rel="apple-touch-icon">
+
+  <link href="assets/img/geote.png" rel="icon">
+  <link href="assets/img/geote.png" rel="apple-touch-icon">
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,13 +34,6 @@
 
   <script src="//unpkg.com/alpinejs" defer></script>
 
-  <!-- =======================================================
-  * Template Name: UpConstruction
-  * Updated: Sep 18 2023 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/upconstruction-bootstrap-construction-website-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>

@@ -23,55 +23,6 @@ use App\Http\Controllers\ProjectController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-
-// // Group of routes for normal static pages
-// Route::prefix('/')->namespace('App\Http\Controllers\BasicsController')->group(function(){
-
-//     Route::get('/', [BasicsController::class, 'index'])->name('home');
-//     Route::get('/about', [BasicsController::class, 'about'])->name('about');
-//     Route::get('/engagements', [BasicsController::class, 'engagements'])->name('engagements');
-// });
-// // Group of routes for Admin
-// Route::prefix('/admin')->namespace('App\Http\Controllers\Admin\AdminController')->group(function(){
-
-//     Route::match(['GET', 'POST'], 'login', [AdminController::class, 'login'])->name('admin.login');
-
-//     Route::group(['middleware'=>['admin']], function(){
-//         Route::get('dashboard', [AdminController::class, 'dashboard']);
-//         Route::get('logout', [AdminController::class, 'logout']);
-
-//     });
-    
-// });
-
-// // Group of routes for User
-// Route::prefix('/user')->namespace('App\Http\Controllers\User\UserController')->group(function(){
-
-//     Route::get('dashboard', [UserController::class, 'dashboard']);
-//     Route::match(['GET', 'POST'], 'login', [UserController::class, 'login'])->name('user.login');
-//     // Route::match(['GET', 'POST'], 'login', [AdminController::class, 'login'])->name('admin.login');
-
-//     Route::group(['middleware'=>['user']], function(){
-//         Route::get('dashboard', [UserController::class, 'dashboard']);
-//         Route::get('logout', [UserController::class, 'logout']);
-
-//     });
-    
-// });
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-  
-// //Admin Routes List
-// Route::middleware(['auth', 'user-access:manager'])->group(function () {
-   
-//     Route::get('/manager/home', [HomeController::class, 'managerHome'])->name('manager.home');
-// });
-
 
 
 Route::fallback(FallbackController::class); //for routes/pages that don exist.

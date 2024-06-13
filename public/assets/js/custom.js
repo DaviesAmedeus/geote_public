@@ -54,4 +54,4 @@
 //    function showFullContent() {
 //        var postContent = document.getElementById('postContent');
 //        postContent.innerHTML = '{{ post.post_content|safe }}';
-//    }
+// 

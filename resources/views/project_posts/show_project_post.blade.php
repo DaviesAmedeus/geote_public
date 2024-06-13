@@ -32,6 +32,7 @@
               {!! $project->post_content  !!}
             </div><!-- End post content -->
 
+            Erick@9955
 
           </article><!-- End blog post -->
 
