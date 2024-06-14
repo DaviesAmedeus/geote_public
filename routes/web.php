@@ -11,6 +11,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\NewsUpdatesController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\PublicationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,62 +24,9 @@ use App\Http\Controllers\ProjectController;
 |
 */
 
-
-
-Route::fallback(FallbackController::class); //for routes/pages that don exist.
-Auth::routes(); 
-
-// for routes or pages that dont require authentication i.e basic pages
-Route::prefix('/')->group(function(){
-    Route::get('/', [BasicsController::class, 'index'])->name('home');
-    Route::get('/about', [BasicsController::class, 'about'])->name('about');
-    Route::get('/engagements', [BasicsController::class, 'engagements'])->name('engagements');
-});
-
-
-//Normal Users Routes List (They are secured)
-Route::middleware(['auth', 'user-access:user'])->group(function () {
-    Route::get('/user/dashboard', [HomeController::class, 'index'])->name('user.home');
-    Route::get('/user/logout', [HomeController::class, 'logout_user'])->name('user.logout');
-    Route::get('/user/profile/{id}', [HomeController::class, 'userProfile'])->name('user.profile');
-    Route::post('/user/profile/update/{id}', [HomeController::class, 'update'])->name('user.profile_update');
-    
-    
-    
-});
-   
-
-//Admin Routes List (They are secured)
-Route::middleware(['auth', 'user-access:admin'])->group(function () {
-    Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
-    Route::get('/admin/logout', [HomeController::class, 'logout_admin'])->name('admin.logout');
-    
-});
-
-
-// Routes for blog section
-Route::prefix('/blog_section')->group(function(){
-    Route::get('/blog', [BlogController::class, 'index'])->name('blog.index'); 
-   
-    
-    Route::get('/createblogpost', [BlogController::class, 'createblogpost'])
-        ->middleware(['auth', 'user-access:user'])->name('blog.create');
-
-    Route::post('/blogstore', [BlogController::class, 'store'])
-        ->middleware(['auth', 'user-access:user'])->name('blog.store');
-
-    Route::get('/blog_post/{id}',[BlogController::class, 'showBlogPost'])->name('blog.show');
-
-    Route::get('/user/all_blog_posts', [BlogController::class, 'allBlogPosts'])->middleware(['auth', 'user-access:user'])->name('user.allposts'); 
-    Route::get('/blog_post/edit/{id}',[BlogController::class, 'editBlogPost'])->middleware(['auth', 'user-access:user'])->name('blog.edit');
-    Route::patch('/{id}',[BlogController::class, 'update'])->middleware(['auth', 'user-access:user'])->name('blog.update');
-    Route::delete('/blog_post/delete/{id}',[BlogController::class, 'destroy'])->middleware(['auth', 'user-access:user'])->name('blog.delete');
-
-});
-
-
-// News Updates Routes
-Route::prefix('/news_updates')->controller(NewsUpdatesController::class)->group(function(){
+/*
+News Updates Routes
+Route::prefix('/news_updates')->controller(NewsUpdatesController::class)->group(function () {
 
     Route::get('/updates', 'index')->name('updates.index');
     Route::get('/create', 'create')->middleware(['auth', 'user-access:user'])->name('updates.create');
@@ -89,36 +37,94 @@ Route::prefix('/news_updates')->controller(NewsUpdatesController::class)->group(
     Route::get('/edit/{id}', 'edit')->middleware(['auth', 'user-access:user'])->name('updates.edit');
     Route::patch('/update/{id}', 'update')->middleware(['auth', 'user-access:user'])->name('updates.update');
     Route::delete('/update/delete/{id}', 'destroy')->middleware(['auth', 'user-access:user'])->name('updates.delete');
-
-
 });
+*/
 
 
-//  News Updates Routes
-Route::prefix('/project_section')->controller(ProjectController::class)->group(function(){
+Route::fallback(FallbackController::class); //for routes/pages that don exist.
+Auth::routes();
 
-    Route::get('/projects', 'index')->name('projects.index');
-    Route::get('/create', 'create')->middleware(['auth', 'user-access:user'])->name('projects.create');
+/* --- BASIC PAGES --- */
+Route::prefix('/')->group(function () {
+    Route::controller(BasicsController::class)->group(function(){
+        Route::get('/',  'index')->name('home');
+        Route::get('/about','about')->name('about');
+        Route::get('/engagements',  'engagements')->name('engagements');
+    });
 
-    Route::post('/store', 'store')->middleware(['auth', 'user-access:user'])->name('projects.store');
-    Route::get('/user/all_projects', 'allProjects')->middleware(['auth', 'user-access:user'])->name('user.allProjects');
+    // Routes for blog section
+    Route::controller(BlogController::class)->group(function(){
+        Route::get('/blog', 'index')->name('blog.index');
+        Route::get('/blog/{id}', 'showBlogPost')->name('blog.show');
+    });
 
-    Route::get('/project/{id}', 'show')->name('projects.show');
-    Route::get('/edit/{id}', 'edit')->middleware(['auth', 'user-access:user'])->name('projects.edit');
+    Route::controller(ProjectController::class)->group(function(){
+        Route::get('/projects', 'index')->name('projects.index');
+        Route::get('/projects/{id}', 'show')->name('projects.show');
+    });
 
-    Route::patch('/project/{id}', 'update')->middleware(['auth', 'user-access:user'])->name('projects.update');
-    Route::delete('/project/delete/{id}', 'destroy')->middleware(['auth', 'user-access:user'])->name('projects.delete');
-
-
-});
-
-
-
-
-
-
-
- 
-
+    Route::get('/publications', PublicationController::class)->name('publications');
 
     
+});
+
+
+/* --- AUTHENICATED ROUTES FOR USER --- */
+Route::middleware(['auth', 'user-access:user'])->group(function () {
+
+    // User profile routes, logout route, dashboard home
+    Route::controller(HomeController::class)->group(function () {
+        Route::prefix('/user')->group(function () {
+            Route::get('/dashboard', 'index')->name('user.home');
+            Route::get('/logout', 'logout_user')->name('user.logout');
+            Route::get('/profile/{id}', 'userProfile')->name('user.profile');
+            Route::post('/profile/update/{id}',  'update')->name('user.profile_update');
+        });
+    });
+
+    // User blog routes
+    Route::controller(BlogController::class)->group(function () {
+        Route::prefix('/user/blog')->group(function () {
+            Route::get('/blog_posts',  'blogPosts')->name('user.allposts');
+            Route::get('/create', 'createblogpost')->name('blog.create');
+            Route::post('/store', 'store')->name('blog.store');
+            Route::get('/edit/{id}', 'editBlogPost')->name('blog.edit');
+            Route::patch('/{id}', 'update')->name('blog.update');
+            Route::delete('/{id}', 'destroy')->name('blog.delete');
+        });
+    });
+
+    //  Project Updates Routes
+    Route::controller(ProjectController::class)->group(function () {
+        Route::prefix('user/projects')->group(function(){
+            Route::get('/project_posts', 'allProjects')->name('user.allProjects');
+            Route::get('/create', 'create')->name('projects.create');
+            Route::post('/store', 'store')->name('projects.store');
+            Route::get('/edit/{id}', 'edit')->name('projects.edit');
+            Route::patch('/{id}', 'update')->name('projects.update');
+            Route::delete('/{id}', 'destroy')->name('projects.delete');
+        });
+
+    
+        
+    });
+
+
+});
+
+
+//Admin Routes List (They are secured)
+/* --- AUTHENICATED ROUTES FOR USER --- */
+Route::middleware(['auth', 'user-access:admin'])->group(function () {
+    Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
+    Route::get('/admin/logout', [HomeController::class, 'logout_admin'])->name('admin.logout');
+});
+
+
+
+
+
+
+
+
+

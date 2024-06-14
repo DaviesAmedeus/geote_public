@@ -7,7 +7,7 @@
     </div>
     <!-- /.card-header -->
     <!-- form start -->
-    <form method="POST" action="/blog_section/blogstore" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('blog.store') }}" enctype="multipart/form-data">
         @csrf
       <div class="card-body">
         

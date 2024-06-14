@@ -29,7 +29,7 @@ class BlogController extends Controller
     }
 
 
-    public function allBlogPosts(){
+    public function blogPosts(){
 
         $user = Auth::id();
       

@@ -46,7 +46,7 @@
 
             <hr>
 
-            <a href="{{ route('updates.show', ['id'=>$project->id]) }}" class="readmore stretched-link"><span>Project in detail</span><i class="bi bi-arrow-right"></i></a>
+            <a href="{{ route('projects.show', ['id'=>$project->id]) }}" class="readmore stretched-link"><span>Project in detail</span><i class="bi bi-arrow-right"></i></a>
               
           </div>
 
