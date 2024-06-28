@@ -1,10 +1,15 @@
-@extends('layouts.layout')
+<x-layout>
+  <section id="blog" class="blog">
 
-@include('partials.landingpages.projects_landingpage')
 
   
-
-@section('content')
+  <!-- Landing section -->
+  <x-slot:landing_section>
+    <x-landing-pages.landing-page 
+      style="background-image: url('{{ asset('assets/img/landingpages_pics/projectpage4.jpg') }}');">
+      Project Details
+    </x-landing-pages.landing-page>
+  </x-slot:landing_section>
 <!-- ======= Blog Details Section ======= -->
 <section id="blog" class="blog">
     <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -157,4 +162,4 @@
     </div>
   </section><!-- End Blog Details Section -->
 
-@endsection
+</x-layout>

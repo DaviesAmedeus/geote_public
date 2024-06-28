@@ -1,6 +1,9 @@
 <x-layout>
+
+  <!-- Landing section -->
   <x-slot:landing_section>
-    <x-landing-pages.landing-page :home="request()->is('login')" style="background-image: url({{asset('assets/img/landingpages_pics/engagementpage.jpg')}});">
+    <x-landing-pages.landing-page :home="request()->is('login')" 
+      style="background-image: url({{asset('assets/img/landingpages_pics/engagementpage.jpg')}});">
       Our Engagements
     </x-landing-pages.landing-page>
   </x-slot:landing_section>

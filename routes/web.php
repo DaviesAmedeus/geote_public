@@ -32,6 +32,7 @@ Auth::routes();
 
 /* --- BASIC(GUEST) PAGES --- */
 Route::prefix('/')->group(function () {
+    
     Route::controller(BasicsController::class)->group(function(){
         Route::get('/',  'index')->name('home');
         Route::get('/about','about')->name('about');

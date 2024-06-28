@@ -11,6 +11,6 @@ class PublicationController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('news_updates.index');
+        return view('publications');
     }
 }

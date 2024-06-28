@@ -99,7 +99,7 @@ class BlogController extends Controller
     public function showBlogPost(string $id)
     {
       
-      return view('blog.show_blog_post', [
+      return view('blog.show', [
         'blogpost' => Post::findOrFail($id),
         'recentNewsUpdates'=> Post::where('category_id', 2)->take(3)->latest()->get(),
         'recentBlogPosts'=> Post::where('category_id', 1)->take(3)->latest()->get(),

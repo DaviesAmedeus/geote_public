@@ -1,6 +1,5 @@
 @props(['home'=>false])
 
-
   @if($home)
   <!-- ======= Hero Section ======= -->
 <section id="hero" class="hero">

@@ -1,20 +1,18 @@
-@extends('layouts.layout')
+<x-layout>
 
-@include('partials.landingpages.blog_landingpage')
-
+  <!-- Landing section -->
+  <x-slot:landing_section>
+    <x-landing-pages.landing-page 
+      style="background-image: url('{{ asset('assets/img/landingpages_pics/blogpage.jpg') }}');">
+      Our Blog Posts
+    </x-landing-pages.landing-page>
+  </x-slot:landing_section>
   
 
-@section('content')
-<!-- ======= Blog Section ======= -->
-<div class="row justify-content-center">
-  <x-flash-message />
-</div>
-
-<section id="blog" class="blog">
-
-
-  
-  
+  <section id="blog" class="blog">
+    
+    <x-flash-message />
+    
     <div class="container" data-aos="fade-up" data-aos-delay="100">
       @if (Auth::check())
       <a href="{{ route('blog.create') }}" class="btn btn-sm btn-primary m-3">Create Post</a>
@@ -67,7 +65,9 @@
 
 
     </div>
-  </section><!-- End Blog Section -->
+</section><!-- End Blog Section -->
+</x-layout>
 
 
-@endsection
+
+

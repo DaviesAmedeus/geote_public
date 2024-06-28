@@ -1,5 +1,5 @@
 <x-layout>
-
+          <!-- Landing section -->
           <x-slot:landing_section>
             <x-landing-pages.landing-page :home="request()->is('/')" />
           </x-slot:landing_section>
