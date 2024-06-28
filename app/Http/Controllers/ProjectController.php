@@ -16,7 +16,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return view('project_posts.index',[
+        return view('projects.index',[
             'projects'=> Post::where('category_id', 3)->latest()->paginate(6) //SimplePaginate(3)
         ]);
     }
@@ -38,7 +38,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('project_posts.create_project');
+        return view('projects.create');
     }
 
     /**
@@ -88,7 +88,7 @@ class ProjectController extends Controller
      */
     public function show(string $id)
     {
-        return view('project_posts.show_project_post', [
+        return view('projects.show', [
             'project' => Post::findOrFail($id),
             'recentNewsUpdates'=> Post::where('category_id', 2)->take(3)->latest()->get(),
             'recentBlogPosts'=> Post::where('category_id', 1)->take(3)->latest()->get(),
@@ -101,7 +101,7 @@ class ProjectController extends Controller
      */
     public function edit(string $id)
     {
-        return view('project_posts.edit_project_post',[
+        return view('projects.edit',[
             'project'=> Post::findOrFail($id)
         ]);
     }

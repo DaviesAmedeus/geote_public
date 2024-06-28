@@ -24,27 +24,13 @@ use App\Http\Controllers\PublicationController;
 |
 */
 
-/*
-News Updates Routes
-Route::prefix('/news_updates')->controller(NewsUpdatesController::class)->group(function () {
 
-    Route::get('/updates', 'index')->name('updates.index');
-    Route::get('/create', 'create')->middleware(['auth', 'user-access:user'])->name('updates.create');
-    Route::post('/store', 'store')->middleware(['auth', 'user-access:user'])->name('updates.store');
-    Route::get('/user/all_news_updates', 'allNewsUpdates')->middleware(['auth', 'user-access:user'])->name('user.allUpdates');
-
-    Route::get('/update/{id}', 'show')->name('updates.show');
-    Route::get('/edit/{id}', 'edit')->middleware(['auth', 'user-access:user'])->name('updates.edit');
-    Route::patch('/update/{id}', 'update')->middleware(['auth', 'user-access:user'])->name('updates.update');
-    Route::delete('/update/delete/{id}', 'destroy')->middleware(['auth', 'user-access:user'])->name('updates.delete');
-});
-*/
 
 
 Route::fallback(FallbackController::class); //for routes/pages that don exist.
 Auth::routes();
 
-/* --- BASIC PAGES --- */
+/* --- BASIC(GUEST) PAGES --- */
 Route::prefix('/')->group(function () {
     Route::controller(BasicsController::class)->group(function(){
         Route::get('/',  'index')->name('home');

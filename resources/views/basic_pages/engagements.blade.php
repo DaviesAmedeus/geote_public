@@ -1,9 +1,10 @@
-@extends('layouts.layout')
+<x-layout>
+  <x-slot:landing_section>
+    <x-landing-pages.landing-page :home="request()->is('login')" style="background-image: url({{asset('assets/img/landingpages_pics/engagementpage.jpg')}});">
+      Our Engagements
+    </x-landing-pages.landing-page>
+  </x-slot:landing_section>
 
-@include('partials.landingpages.engangement_landingpage')
-
-@section('content')
-<!-- ======= Engagement Section ======= -->
 <section id="services" class="services section-bg">
     <div class="container" data-aos="fade-up">
 
@@ -16,9 +17,9 @@
             </div>
             <h3>Training and capacity building</h3>
             <p>Accelerating the impact of the data collected on community field and remote
-mapping, GeoTE trains data users and consumers on the correct and right way to
-use and create more impact with the data made available for decision making,
-knowledge generation, and communications.</p>
+              mapping, GeoTE trains data users and consumers on the correct and right way to
+              use and create more impact with the data made available for decision making,
+              knowledge generation, and communications.</p>
           </div>
         </div><!-- End Service Item -->
 
@@ -70,6 +71,4 @@ knowledge generation, and communications.</p>
 
     </div>
   </section>
-<!-- End Engagements Section -->
-
-@endsection
+</x-layout>

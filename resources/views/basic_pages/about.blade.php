@@ -1,10 +1,12 @@
-@extends('layouts.layout')
+<x-layout>
 
-{{-- Landing page --}}
-@include('partials.landingpages.about_landingpage')
+  <x-slot:landing_section>
+    <x-landing-pages.landing-page style="background-image: url('{{ asset('assets/img/landingpages_pics/aboutpage.jpg') }}');">
+      About GeoTE
+    </x-landing-pages.landing-page>
+  </x-slot:landing_section>
+  
 
-@section('content')
-<!-- ======= Who we are section ======= -->
 <section id="alt-services" class="alt-services">
     <div class="container" data-aos="fade-up">
 
@@ -215,4 +217,9 @@
 </div>
 </section><!-- End Our Team Section -->
 
-@endsection
+
+</x-layout>
+
+
+
+
