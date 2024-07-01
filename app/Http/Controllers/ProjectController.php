@@ -49,6 +49,7 @@ class ProjectController extends Controller
         
 
         Post::validate($request);
+        
         $validated_entries = [
             'post_title' => $request->input('post_title'),
             'post_intro' => $request->input('post_intro'),

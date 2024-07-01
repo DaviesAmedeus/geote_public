@@ -24,7 +24,7 @@
           <div class="post-item position-relative h-100">
   
             <div class="post-img position-relative overflow-hidden">
-              <img src="{{$project->post_picture ? asset('storage/' . $project->post_picture ) : asset('assets/img/blog/blog1.jpg') }}" class="img-fluid img-thumbnail" alt="">
+              <img src="{{$project->post_picture ? asset($project->post_picture ) : asset('assets/img/blog/blog1.jpg') }}" class="img-fluid img-thumbnail" alt="">
               <span class="post-date">{{ $project->status }}</span>
             </div>
   

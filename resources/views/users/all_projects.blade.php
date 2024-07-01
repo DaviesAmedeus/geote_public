@@ -8,12 +8,6 @@
 
 <div class="row">
 
-  {{-- <div class="col-md-6 mb-3">
-    <div class="card bg-primary text-white h-100">
-      <div class="card-body py-5">Blog Posts: {{ $total }}</div>
-    </div>
-  </div> --}}
-
   
 
 

@@ -25,7 +25,6 @@ class Post extends Model
             'author_name'=>'max:55',
             'author_photo' => [File::image()->dimensions(\Illuminate\Validation\Rule::dimensions()->maxWidth(400)->maxHeight(400)),],
             'author_desc'=>'max:500', 
-
         ]);
     }
 

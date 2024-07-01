@@ -10,7 +10,6 @@
     <form method="POST" action="{{ route('projects.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="card-body">
-        
 
           <div class="form-group p-3">
             {{-- <label for="exampleInputEmail1">Title</label> --}}

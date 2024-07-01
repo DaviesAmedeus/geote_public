@@ -14,11 +14,11 @@
     </div>
   </div>
 
-  <div class="col-md-6 mb-6">
+  {{-- <div class="col-md-6 mb-6">
     <div class="card bg-warning text-dark">
       <div class="card-body py-5">News (Updates): {{ $updates }} <strong class="p-3"> <a href="{{ route('user.allUpdates') }}" class="text-light text-decoration-none"> >></a> </strong> </div>
     </div>
-  </div>
+  </div> --}}
 
   <div class="col-md-6 mb-6">
     <div class="card bg-success text-white">

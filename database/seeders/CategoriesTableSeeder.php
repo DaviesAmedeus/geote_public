@@ -19,10 +19,7 @@ class CategoriesTableSeeder extends Seeder
                 'category_name'=> 'blog'
             ],
 
-            [
-                'id'=>2,
-                'category_name'=> 'update'
-            ],
+           
 
             [
                 'id'=>3,
