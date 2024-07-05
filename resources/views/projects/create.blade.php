@@ -32,13 +32,19 @@
               @enderror
             </div>
 
-            <label for="inputSelect" class="form-label">Project status</label>
-            <select class="p-2" aria-label="Default select" name="status" id="inputSelect">
-              <option selected="">Select option</option>
-              <option value="Completed">Completed</option>
-              <option value="Inprogress">Inprogress</option>
-              <option value="Pending">Pending</option>
-            </select>
+           
+
+            <div class="form-group p-3">
+              <select class="form-select form-select-sm" name="status">
+                <option selected="">Project Status</option>
+                <option value="Completed">Completed</option>
+                <option value="Inprogress">Inprogress</option>
+                <option value="Pending">Pending</option>
+              </select>
+              </div>
+
+           
+            
 
             <div class="form-group p-3">
               <label for="exampleInputFile">Cover photo</label>
@@ -54,7 +60,7 @@
           
   
           <div class="form-group p-3">
-              <label for="postDescription">Content</label>
+              {{-- <label for="postDescription">Content</label> --}}
               <div id="editor">
               <textarea class="form-control-plaintext" name="post_content" placeholder="The project in detail..." id="content" cols="10">{{ old('post_content') }}</textarea>
               </div>  
@@ -63,40 +69,18 @@
                 @enderror
               </div>
   
-         
 
-          <div class="card">
-                
-                
-            <div class="form-group p-3 d-flex">
-              <div class="me-5" id="editor">
-              <input type="text" name="author_name" value="{{ old('author_name') }}" class="form-control-plaintext" id="author_name" placeholder="Author name...">
-              @error('author_name')
-              <span class="text-danger">{{ $message }}</span>
-              @enderror  
-            </div>
-              
-            <div class="custom-file d-flex">
-              
-              <label class="me-2 text-mute" for="exampleInputFile">Author photo(w:400, h:400)</label>
-              
-              <input type="file" class="custom-file-input" name="author_photo" id="exampleInputFile">
-              @error('author_photo')
-              <span class="text-danger">{{ $message }}</span>
-              @enderror
-            </div>
-              
-            </div>
-  
-            <div class="form-group p-3">
-                <textarea class="form-control-plaintext" name="author_desc" placeholder="About the author..." id="post_intro" >{{ old('post_intro') }}</textarea>
-                @error('author_desc')
-                <span class="text-danger">{{ $message }}</span>
-                @enderror
-              </div>
+                <div class="form-group p-3">
+                <label for="inputSelectMultiple" class="form-label">Select the author</label>
+                <select class="form-select" multiple="" name="author_id" aria-label="Multiple select" id="inputSelectMultiple">
+                  @foreach ($authors as $author )
+                  <option value="{{ $author->id }}">{{ $author->author_name }}</option>
+                  @endforeach
+                  
+                </select>
                 </div>
 
-        
+                        
       </div>
       <!-- /.card-body -->
 

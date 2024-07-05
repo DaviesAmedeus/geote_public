@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\Author;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -25,9 +26,7 @@ class PostFactory extends Factory
             'status' => 'Inprogress',
             'post_content'=>fake()->sentence(),
             'post_picture' => fake()->imageUrl(),
-            'author_name'=>fake()->name(),
-            'author_photo' => fake()->imageUrl(),
-            'author_desc'=>'max:500',
+            'author_id'=>Author::factory(),
             
         ];
     }

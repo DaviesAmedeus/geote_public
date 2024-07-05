@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Author;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -38,7 +39,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('projects.create');
+        return view('projects.create',[
+            'authors'=>Author::all(), 
+        ]);
     }
 
     /**
@@ -47,7 +50,7 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         
-
+        dd($request);
         Post::validate($request);
         
         $validated_entries = [
@@ -91,9 +94,8 @@ class ProjectController extends Controller
     {
         return view('projects.show', [
             'project' => Post::findOrFail($id),
-            'recentNewsUpdates'=> Post::where('category_id', 2)->take(3)->latest()->get(),
-            'recentBlogPosts'=> Post::where('category_id', 1)->take(3)->latest()->get(),
-            'recentProjects'=> Post::where('category_id', 3)->take(3)->latest()->get(),
+            'blog_posts'=> Post::where('category_id', 1)->take(3)->latest()->get(),
+            'projects'=> Post::where('category_id', 3)->take(3)->latest()->get(),
           ]);
     }
 
