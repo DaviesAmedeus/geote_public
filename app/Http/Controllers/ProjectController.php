@@ -28,7 +28,7 @@ class ProjectController extends Controller
         $user = Auth::id();
       
 
-        return view('users.all_projects',[
+        return view('projects.projects',[
             'posts'=>Post::where('user_id',$user)->where('category_id', 3)->latest()->paginate(10),
             'total'=>Post::where('user_id',$user)->count()
         ]);
@@ -49,36 +49,22 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+        $validated_entries = Post::validate($request);
+        $validated_entries['user_id'] = Auth::user()->id;
+        $validated_entries['category_id'] = 3;
+        $validated_entries['author_id'] = $request->author_id;
+      
+
+
         
-        dd($request);
-        Post::validate($request);
-        
-        $validated_entries = [
-            'post_title' => $request->input('post_title'),
-            'post_intro' => $request->input('post_intro'),
-            'status' => $request->input('status'),
-
-            'post_content' => $request->input('post_content'),
-         
-            'author_name' => $request->input('author_name'),
-            
-            'user_id'=>Auth::user()->id,
-            'category_id'=> 3,
-            'author_desc' => $request->input('author_desc')
-
-        ];
-   
-
+       
         if($request->hasFile('post_picture')){
     
             $validated_entries['post_picture'] = $request->file('post_picture')->
             store('post_pics', 'public');
         }
     
-        if($request->hasFile('author_photo')){
-            $validated_entries['author_photo'] = $request->file('author_photo')->
-            store('author_photos', 'public');
-        }
+      
         
 
        
@@ -105,7 +91,8 @@ class ProjectController extends Controller
     public function edit(string $id)
     {
         return view('projects.edit',[
-            'project'=> Post::findOrFail($id)
+            'project'=> Post::findOrFail($id),
+            'authors'=>Author::all(), 
         ]);
     }
 
@@ -114,7 +101,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, string $id)
     {
-
+        dd($request);
         Post::validate($request);
         $validated_entries = [
             'post_title' => $request->input('post_title'),

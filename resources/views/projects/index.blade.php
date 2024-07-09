@@ -34,7 +34,7 @@
   
               <div class="meta d-flex align-items-center">
                 <div class="d-flex align-items-center">
-                  <i class="bi bi-person"></i> <span class="ps-2">{{ $project->author->author_name }}</span>
+                  <i class="bi bi-person"></i> <span class="ps-2">Written by {{ $project->author->author_name ? $project->author->author_name  : $project->user->name}}</span>
                 </div>
                 <span class="px-3 text-black-50">/</span>
                 <div class="d-flex align-items-center">

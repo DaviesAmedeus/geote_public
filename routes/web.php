@@ -87,7 +87,7 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
             Route::get('/project_posts', 'allProjects')->name('user.allProjects');
             Route::get('/create', 'create')->name('projects.create');
             Route::post('/store', 'store')->name('projects.store');
-            Route::get('/edit/{id}', 'edit')->name('projects.edit');
+            Route::get('/edit/{int:id}', 'edit')->name('projects.edit');
             Route::patch('/{id}', 'update')->name('projects.update');
             Route::delete('/{id}', 'destroy')->name('projects.delete');
         });

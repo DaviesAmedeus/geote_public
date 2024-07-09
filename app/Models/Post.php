@@ -16,15 +16,14 @@ class Post extends Model
 
 
     public static function validate($request){
-        $request->validate([
+       return $request->validate([
             'post_title'=>'required', 
             'post_intro'=>'required|max:500', 
             'status' => 'in:Completed,Inprogress,Pending',
             'post_content'=>'required',
             'post_picture' => [File::image()->dimensions(Rule::dimensions()->maxWidth(2000)->maxHeight(1200)),],
-            'author_name'=>'max:55',
-            'author_photo' => [File::image()->dimensions(\Illuminate\Validation\Rule::dimensions()->maxWidth(400)->maxHeight(400)),],
-            'author_desc'=>'max:500', 
+            
+           
         ]);
     }
 

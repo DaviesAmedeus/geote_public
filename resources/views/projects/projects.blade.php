@@ -34,7 +34,7 @@
             <tr>
               <td><a class="text-success text-decoration-none" href="{{ route('blog.show', ['id'=>$post->id]) }}">{{ $post->post_title }}</a></td>
               <td>{{ date('jS M Y', strtotime($post->created_at)) }}</td>
-              <td><a href="{{ route('projects.edit', ['id'=>$post->id]) }}" class="btn btn-sm btn-primary">Edit</a></td>
+              <td><a href='/user/projects/edit/{{  $post->id }}' class="btn btn-sm btn-primary">Edit</a></td>
               <td>
 
                 <form method="POST" action="{{ route('projects.delete', ['id'=>$post->id]) }}">
