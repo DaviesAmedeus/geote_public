@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Author;
 use App\Models\Writer;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -41,37 +42,20 @@ class BlogController extends Controller
     }
 
 
-   
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function createblogpost()
     {
-        return view('blog.create_blog_post'
-    );
+        return view('blog.create', 
+        ['authors'=>Author::all(),]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+ 
     public function store(Request $request)
     {
-        
-        Post::validate($request);
-   
-        
-            $validated_entries = [
-                'post_title' => $request->input('post_title'),
-                'post_intro' => $request->input('post_intro'),
-                'post_content' => $request->input('post_content'),
-             
-                'author_name' => $request->input('author_name'),
-                
-                'user_id'=>Auth::user()->id,
-                'category_id'=> '1',
-                'author_desc' => $request->input('author_desc')
-            ];
+        $validated_entries = Post::validate($request);
+        $validated_entries['user_id'] = Auth::user()->id;
+        $validated_entries['category_id'] = 1;
+        $validated_entries['author_id'] = $request->author_id;
 
         if($request->hasFile('post_picture')){
         
@@ -79,14 +63,7 @@ class BlogController extends Controller
             store('post_pics', 'public');
         }
 
-        if($request->hasFile('author_photo')){
-            $validated_entries['author_photo'] = $request->file('author_photo')->
-            store('author_photos', 'public');
-        }
-
-        Post::create(
-            $validated_entries
-            );
+        Post::create( $validated_entries);
 
         return back()->with('message', 'Youve created a Post!');
 
@@ -101,9 +78,8 @@ class BlogController extends Controller
       
       return view('blog.show', [
         'blogpost' => Post::findOrFail($id),
-        'recentNewsUpdates'=> Post::where('category_id', 2)->take(3)->latest()->get(),
-        'recentBlogPosts'=> Post::where('category_id', 1)->take(3)->latest()->get(),
-        'recentProjects'=> Post::where('category_id', 3)->take(3)->latest()->get(),
+        'blog_posts'=> Post::where('category_id', 1)->take(3)->latest()->get(),
+        'projects'=> Post::where('category_id', 3)->take(3)->latest()->get(),
 
       ]);
     }
@@ -115,8 +91,9 @@ class BlogController extends Controller
     {
         // $blogpost = Post::findOrFail($id);
         // dd($blogpost);
-        return view('blog.edit_blog_post',[
-            'blogpost'=> Post::findOrFail($id)
+        return view('blog.edit',[
+            'blog'=> Post::findOrFail($id),
+            'authors'=>Author::all(),
         ]);
     }
 
@@ -128,20 +105,9 @@ class BlogController extends Controller
     {
         
 
-        Post::validate($request);
-   
-        
-        $validated_entries = [
-            'post_title' => $request->input('post_title'),
-            'post_intro' => $request->input('post_intro'),
-            'post_content' => $request->input('post_content'),
-         
-            'author_name' => $request->input('author_name'),
-            
-            'user_id'=>Auth::user()->id,
-            'category_id'=> '1',
-            'author_desc' => $request->input('author_desc')
-        ];
+        $validated_entries = Post::validate($request);
+        $validated_entries['category_id'] = 1;
+        $validated_entries['author_id'] = $request->author_id;
 
     if($request->hasFile('post_picture')){
     

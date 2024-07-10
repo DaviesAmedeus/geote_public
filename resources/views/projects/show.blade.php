@@ -30,7 +30,7 @@
 
             <div class="meta-top">
               <ul>
-                <li class="d-flex align-items-center"><i class="bi bi-person"></i> {{ $project->author->author_name }}</li>
+                <li class="d-flex align-items-center"><i class="bi bi-person"></i>{{ $project->author->author_name }}</li>
                 <li class="d-flex align-items-center"><i class="bi bi-clock"></i><time datetime="2024-02-02">{{ date('jS M Y', strtotime($project->created_at)) }}</time></li>
               </ul>
             </div><!-- End meta top -->

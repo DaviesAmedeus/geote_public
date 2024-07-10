@@ -22,6 +22,7 @@
           <thead>
             <tr class="table-primary">
               <th scope="col">Blog Title</th>
+              <th scope="col">Author</th>
               <th scope="col">Date posted</th>
               <th scope="col"></th>
               <th scope="col"></th>
@@ -32,7 +33,9 @@
             @foreach($posts as $post)
             
             <tr>
-              <td><a class="text-success text-decoration-none" href="{{ route('blog.show', ['id'=>$post->id]) }}">{{ $post->post_title }}</a></td>
+              <td><a class="text-success text-decoration-none" href="{{ route('projects.show', ['id'=>$post->id]) }}">{{ $post->post_title }}</a></td>
+              <td>{{ $post->author->author_name }}</td>
+
               <td>{{ date('jS M Y', strtotime($post->created_at)) }}</td>
               <td><a href='/user/projects/edit/{{  $post->id }}' class="btn btn-sm btn-primary">Edit</a></td>
               <td>

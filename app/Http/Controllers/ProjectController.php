@@ -101,22 +101,26 @@ class ProjectController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        dd($request);
-        Post::validate($request);
-        $validated_entries = [
-            'post_title' => $request->input('post_title'),
-            'post_intro' => $request->input('post_intro'),
-            'status' => $request->input('status'),
+      
+        // Post::validate($request);
+        // $validated_entries = [
+        //     'post_title' => $request->input('post_title'),
+        //     'post_intro' => $request->input('post_intro'),
+        //     'status' => $request->input('status'),
 
-            'post_content' => $request->input('post_content'),
+        //     'post_content' => $request->input('post_content'),
          
-            'author_name' => $request->input('author_name'),
+        //     'author_name' => $request->input('author_name'),
             
-            'user_id'=>Auth::user()->id,
-            'category_id'=> 3,
-            'author_desc' => $request->input('author_desc')
+        //     'user_id'=>Auth::user()->id,
+        //     'category_id'=> 3,
+        //     'author_desc' => $request->input('author_desc')
 
-        ];
+        // ];
+
+        $validated_entries = Post::validate($request);
+        $validated_entries['category_id'] = 3;
+        $validated_entries['author_id'] = $request->author_id;
    
 
         if($request->hasFile('post_picture')){
