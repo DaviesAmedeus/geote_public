@@ -35,7 +35,7 @@ class BlogController extends Controller
         $user = Auth::id();
       
 
-        return view('users.all_blog_posts',[
+        return view('blog.blogposts',[
             'posts'=>Post::where('user_id',$user)->where('category_id', 1)->latest()->paginate(10),
             'total'=>Post::where('user_id',$user)->count()
         ]);
@@ -43,7 +43,7 @@ class BlogController extends Controller
 
 
 
-    public function createblogpost()
+    public function create()
     {
         return view('blog.create', 
         ['authors'=>Author::all(),]);
@@ -69,10 +69,7 @@ class BlogController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
-    // SINGLE BLOG POST
+    
     public function showBlogPost(string $id)
     {
       
@@ -84,13 +81,10 @@ class BlogController extends Controller
       ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function editBlogPost(string $id)
+    
+    public function edit(string $id)
     {
-        // $blogpost = Post::findOrFail($id);
-        // dd($blogpost);
+      
         return view('blog.edit',[
             'blog'=> Post::findOrFail($id),
             'authors'=>Author::all(),

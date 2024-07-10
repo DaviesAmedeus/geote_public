@@ -73,9 +73,9 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::controller(BlogController::class)->group(function () {
         Route::prefix('/user/blog')->group(function () {
             Route::get('/blog_posts',  'blogPosts')->name('user.allposts');
-            Route::get('/create', 'createblogpost')->name('blog.create');
+            Route::get('/create', 'create')->name('blog.create');
             Route::post('/store', 'store')->name('blog.store');
-            Route::get('/edit/{id}', 'editBlogPost')->name('blog.edit');
+            Route::get('/edit/{id}', 'edit')->name('blog.edit');
             Route::patch('/{id}', 'update')->name('blog.update');
             Route::delete('/{id}', 'destroy')->name('blog.delete');
         });
