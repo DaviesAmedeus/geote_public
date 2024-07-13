@@ -1,3 +1,6 @@
+@props(['user'=>true])
+
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
       <button
@@ -48,7 +51,6 @@
               role="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
-            >{{ Auth::user()->name }}
               <i class="bi bi-person-fill"></i>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">

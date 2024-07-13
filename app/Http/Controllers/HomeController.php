@@ -30,7 +30,7 @@ class HomeController extends Controller
     {
 
         $user = Auth::id();
-        return view('users.dashboard',[
+        return view('home.dashboard',[
             'total_posts'=>Post::where('user_id',$user)->count(),
             'blog_posts'=>Post::where('user_id',$user)->where('category_id',1)->count(),
             'updates'=>Post::where('user_id',$user)->where('category_id',2)->count(),

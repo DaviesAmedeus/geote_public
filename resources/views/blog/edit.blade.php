@@ -1,7 +1,6 @@
-@extends('users.layouts.layout')
-@section('content')
+<x-dashboard.layout>
 
-<div class="card card-primary m-5">
+  <div class="card card-primary m-5">
     <div class="card-header">
       <h3 class="card-title text-center">Edit Blog post</h3>
     </div>
@@ -34,6 +33,7 @@
   </div>
 
   {{-- <iframe src="https://daviesamedeus.substack.com/embed" width="480" height="320" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no"></iframe> --}}
-@endsection
 
   
+
+</x-dashboard.layout>

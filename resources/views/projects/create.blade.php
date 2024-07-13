@@ -1,7 +1,5 @@
-@extends('users.layouts.layout')
-@section('content')
-
-<div class="card card-primary m-5">
+<x-dashboard.layout>
+  <div class="card card-primary m-5">
     <div class="card-header">
       <h3 class="card-title text-center">Create A Project Post</h3>
     </div>
@@ -30,6 +28,4 @@
 
     </x-post-forms.form>
 </div>
-@endsection
-
-  
+</x-dashboard.layout>

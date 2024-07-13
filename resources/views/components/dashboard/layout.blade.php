@@ -27,16 +27,16 @@
   </head>
   <body>
     <!-- top navigation bar -->
-    @include('users.layouts.navbar')
+    <x-dashboard.navbar />
    
     <!-- Sidebar -->
-    @include('users.layouts.sidebar')
+   <x-dashboard.sidebar />
     
    
     {{-- Contents part --}}
     <main class="mt-5 pt-3">
       <div class="container-fluid">
-      @yield('content')
+      {{ $slot }}
       </div>
     </main>
 

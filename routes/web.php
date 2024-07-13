@@ -92,6 +92,18 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
             Route::delete('/{id}', 'destroy')->name('projects.delete');
         });
 
+        // Author routes
+    Route::controller(BlogController::class)->group(function () {
+        Route::prefix('/user/author')->group(function () {
+            // Route::get('/all_authors',  'allAuthors')->name('author.allAuthors');
+            Route::get('/create', 'create')->name('author.create');
+            // Route::post('/store', 'store')->name('author.store');
+            // Route::get('/edit/{id}', 'edit')->name('author.edit');
+            // Route::patch('/{id}', 'update')->name('author.update');
+            // Route::delete('/{id}', 'destroy')->name('author.delete');
+        });
+    });
+
     
         
     });
