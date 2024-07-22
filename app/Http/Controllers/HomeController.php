@@ -26,17 +26,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
-
-        $user = Auth::id();
-        return view('home.dashboard',[
-            'total_posts'=>Post::where('user_id',$user)->count(),
-            'blog_posts'=>Post::where('user_id',$user)->where('category_id',1)->count(),
-            'updates'=>Post::where('user_id',$user)->where('category_id',2)->count(),
-            'projects'=>Post::where('user_id',$user)->where('category_id',3)->count()
-        ]);
-    }
+   
 
 
    
@@ -45,9 +35,15 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
+     public function index()
+     {
+         return view('home.dashboard');
+     }
+
     public function adminHome()
     {
-        return view('admin.dashboard');
+        return view('admin.index');
     }
     
     /**
@@ -77,7 +73,7 @@ class HomeController extends Controller
 
     // Concerning the user profile:
     public function userProfile(string $id){
-        return view('users.user_profile', [
+        return view('home.user_profile', [
             'user'=>User::findOrFail($id)
         ]);
     }

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Auth;
+use App\Models\Author;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
 {
@@ -30,15 +31,15 @@ class AdminController extends Controller
         return view('admin.login');
     }
 
-    public function dashboard(){
-        return view('admin.dashboard');
+    public function home(){
+        return view('admin.index',  ['authors'=>Author::all(),]);
     }
 
+   
 
-    
-    public function logout(){
+    public function logout_admin(){
 
-        Auth::guard('admin')->logout();
-        return redirect('admin/login');
+        Auth::logout();
+        return view('auth.login')->with('logout_message', 'You have logged out!');
     }
 }

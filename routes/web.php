@@ -2,16 +2,17 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\FoodController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BasicsController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\FallbackController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\BlogController;
-use App\Http\Controllers\FoodController;
 use App\Http\Controllers\NewsUpdatesController;
-use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PublicationController;
+use App\Http\Controllers\Admin\AdminAuthorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -115,8 +116,16 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
 //Admin Routes List (They are secured)
 /* --- AUTHENICATED ROUTES FOR USER --- */
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
-    Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
-    Route::get('/admin/logout', [HomeController::class, 'logout_admin'])->name('admin.logout');
+    Route::get('/admin/home', [AdminController::class, 'home'])->name('admin.home');
+    Route::get('/admin/logout', [AdminController::class, 'logout_admin'])->name('admin.logout');
+
+    Route::get('/admin/author/create', [AdminAuthorController::class, 'create'])->name('author.create');
+    Route::post('/admin/author/store', [AdminAuthorController::class, 'store'])->name('author.store');
+    Route::delete('/admin/author/{id}/destroy', [AdminAuthorController::class ,'destroy'])->name('author.delete');
+
+
+
+    
 });
 
 

@@ -15,7 +15,7 @@
       <h3
         class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold"
         href="#"
-        >USER DASHBOARD</h3
+        >ADMIN DASHBOARD</h3
       >
       <button
         class="navbar-toggler"
@@ -57,7 +57,7 @@
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="{{ route('user.profile', ['id'=> Auth::user()->id]) }}">My profile</a></li>
               <li>
-                <a class="dropdown-item" href="{{ route('user.logout') }}">Logout</a>
+                <a class="dropdown-item" href="{{ route('admin.logout') }}">Logout</a>
               </li>
             </ul>
           </li>
