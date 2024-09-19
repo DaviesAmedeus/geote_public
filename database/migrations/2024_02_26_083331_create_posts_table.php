@@ -16,20 +16,23 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Category::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Author::class)->nullable();
-            $table->string('post_title');
-            $table->text('post_intro');
-            $table->text('post_content');
-            $table->enum('status', ['Completed', 'Inprogress', 'Pending'])->default('Inprogress');
-            $table->text('post_picture')->nullable();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
+            $table->foreignId('author_id')->constrained('authors')->cascadeOnDelete();
+            $table->string('title', 255);
+            $table->string('slug', 255);
+            $table->text('description')->nullable();
+            $table->longText('body');
+            $table->string('image')->nullable();
+            $table->enum('status', ['Completed', 'Continuing'])->default('Completed')->nullable();
+            $table->text('meta_title');
+            $table->text('meta_description');
             $table->timestamps();
-           
+
         });
     }
 
-    
+
 
     /**
      * Reverse the migrations.
