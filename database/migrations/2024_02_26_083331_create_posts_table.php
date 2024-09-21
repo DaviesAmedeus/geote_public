@@ -25,8 +25,8 @@ return new class extends Migration
             $table->longText('body');
             $table->string('image')->nullable();
             $table->enum('status', ['Completed', 'Continuing'])->default('Completed')->nullable();
-            $table->text('meta_title');
-            $table->text('meta_description');
+            $table->text('meta_title')->nullable();
+            $table->text('meta_description')->nullable();
             $table->timestamps();
 
         });
