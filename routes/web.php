@@ -29,11 +29,11 @@ use App\Http\Controllers\Admin\AdminAuthorController;
 
 
 Route::fallback(FallbackController::class); //for routes/pages that don exist.
-Auth::routes();
+//Auth::routes();
 
 /* --- BASIC(GUEST) PAGES --- */
 Route::prefix('/')->group(function () {
-    
+
     Route::controller(BasicsController::class)->group(function(){
         Route::get('/',  'index')->name('home');
         Route::get('/about','about')->name('about');
@@ -53,7 +53,7 @@ Route::prefix('/')->group(function () {
 
     Route::get('/publications', PublicationController::class)->name('publications');
 
-    
+
 });
 
 
@@ -105,28 +105,29 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
         });
     });
 
-    
-        
+
+
     });
 
 
-});
+});//        Post::class=>PostPolicy::class
+
 
 
 //Admin Routes List (They are secured)
 /* --- AUTHENICATED ROUTES FOR USER --- */
-Route::middleware(['auth', 'user-access:admin'])->group(function () {
-    Route::get('/admin/home', [AdminController::class, 'home'])->name('admin.home');
-    Route::get('/admin/logout', [AdminController::class, 'logout_admin'])->name('admin.logout');
-
-    Route::get('/admin/author/create', [AdminAuthorController::class, 'create'])->name('author.create');
-    Route::post('/admin/author/store', [AdminAuthorController::class, 'store'])->name('author.store');
-    Route::delete('/admin/author/{id}/destroy', [AdminAuthorController::class ,'destroy'])->name('author.delete');
-
-
-
-    
-});
+//Route::middleware(['auth', 'user-access:admin'])->group(function () {
+//    Route::get('/admin/home', [AdminController::class, 'home'])->name('admin.home');
+//    Route::get('/admin/logout', [AdminController::class, 'logout_admin'])->name('admin.logout');
+//
+//    Route::get('/admin/author/create', [AdminAuthorController::class, 'create'])->name('author.create');
+//    Route::post('/admin/author/store', [AdminAuthorController::class, 'store'])->name('author.store');
+//    Route::delete('/admin/author/{id}/destroy', [AdminAuthorController::class ,'destroy'])->name('author.delete');
+//
+//
+//
+//
+//});
 
 
 

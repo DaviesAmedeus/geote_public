@@ -27,10 +27,10 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'password' => static::$password ??= Hash::make('password'),
-            'type'=> 0,
+            'is_admin'=> 0,
         ];
 
-        
+
     }
 
     /**

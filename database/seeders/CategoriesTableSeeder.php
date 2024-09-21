@@ -15,15 +15,13 @@ class CategoriesTableSeeder extends Seeder
     {
         $categoriesRecord = [
             [
-                'id'=>1,
-                'category_name'=> 'blog'
+                'name'=> 'blog',
+                'slug'=> 'blog',
             ],
 
-           
-
             [
-                'id'=>3,
-                'category_name'=> 'project'
+                'category_name'=> 'project',
+                'slug'=> 'project',
             ]
             ];
 
