@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Filament\Staff\Resources\BlogResource\Pages;
+
+use App\Filament\Staff\Resources\BlogResource;
+use Filament\Actions;
+use Filament\Resources\Pages\CreateRecord;
+
+class CreateBlog extends CreateRecord
+{
+    protected static string $resource = BlogResource::class;
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        // Automatically assign the current authenticated user's ID before creating
+        $data['user_id'] = auth()->id();
+        $data['category_id'] = 1;
+
+        return $data;
+    }
+}

@@ -2,9 +2,12 @@
 
 namespace App\Providers\Filament;
 
+use App\Http\Middleware\IsAdmin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\MenuItem;
+use Filament\Navigation\NavigationGroup;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -25,15 +28,33 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->id('admin')
             ->path('dashboard')
+            ->userMenuItems([
+                MenuItem::make()
+                    ->label('Dashboard')
+                    ->icon('heroicon-o-cog-6-tooth')
+                    ->url('/staff')
+            ])
             ->login()
             ->colors([
                 'primary' => Color::Amber,
             ])
+            ->sidebarCollapsibleOnDesktop()
             ->darkMode(false)
             ->navigationGroups([
-                'Posts Management',
-                'User Management'
+
+                NavigationGroup::make()
+                    ->label('Posts Management',)
+                    ->icon('heroicon-o-newspaper')
+                    ->collapsible(false),
+                NavigationGroup::make()
+                    ->label('User Management',)
+                    ->icon('heroicon-o-user-group'),
+                NavigationGroup::make()
+                    ->label('Settings',)
+                    ->icon('heroicon-o-cog-6-tooth')
+
             ])
+//            ->collapsibleNavigationGroups(false)
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
@@ -57,6 +78,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+                IsAdmin::class,
             ]);
     }
 }

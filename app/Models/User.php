@@ -26,6 +26,11 @@ class User extends Authenticatable
         'password',
     ];
 
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
+
 
     /**
      * Interact with the user's first name.
