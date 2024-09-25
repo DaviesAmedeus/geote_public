@@ -5,8 +5,10 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ProjectResource\Pages;
 use App\Filament\Resources\ProjectResource\RelationManagers;
 use App\Models\Post;
+use App\Models\Product;
 use App\Models\Project;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -19,7 +21,7 @@ class ProjectResource extends Resource
 {
     protected static ?string $model = Post::class;
     protected static ?string $navigationGroup= 'Posts Management';
-    protected static ?int $navigationSort =2;
+    protected static ?int $navigationSort =1;
 
     protected static ?string $navigationLabel = 'Projects';
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-check';
@@ -28,7 +30,7 @@ class ProjectResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->where('category_id', 2); // Assuming "1" is the ID for "Blog"
+        return parent::getEloquentQuery()->where('category_id', 1); // Assuming "1" is the ID for "Blog"
     }
 
     public static function form(Form $form): Form
@@ -40,9 +42,8 @@ class ProjectResource extends Resource
                         Forms\Components\TextInput::make('title')
                             ->label('Project Title')
                             ->required()
-                            ->maxLength(255)
-                            ->dehydrated()
-                            ->live()
+                            ->live(onBlur: true)
+                            ->unique(Post::class, 'title', ignoreRecord: true)
                             ->afterStateUpdated(function(string $operation, $state,
                                                          Forms\Set $set){
 //                                if($operation !== 'create'){
@@ -51,12 +52,6 @@ class ProjectResource extends Resource
                                 $set('slug', Str::slug($state));
                             })
                             ->columnSpanFull(),
-                        Forms\Components\Select::make('author_id')
-                            ->relationship('author', 'name')
-                            ->searchable()
-                            ->required()
-                            ->placeholder('Select author...')
-                            ->preload(),
                         Forms\Components\TextInput::make('category_id')
                             ->default(1)
                             ->hidden()// Automatically set to the authenticated user's ID
@@ -64,7 +59,8 @@ class ProjectResource extends Resource
 
                         Forms\Components\TextInput::make('slug')
                             ->disabled()
-                            ->maxLength(255)
+                            ->dehydrated()
+                            ->required()
                             ->unique(Post::class, 'slug', ignoreRecord: true),
 
                         Forms\Components\Textarea::make('description')
@@ -103,11 +99,6 @@ class ProjectResource extends Resource
                     ->searchable(isIndividual: true,isGlobal: false),
                 Tables\Columns\TextColumn::make('category.name')
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('author.name')
-                    ->label('Written by')
-                    ->searchable(isIndividual: true,isGlobal: false)
-                    ->sortable(),
-
                 Tables\Columns\TextColumn::make('status')
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
@@ -147,8 +138,8 @@ class ProjectResource extends Resource
     {
         return [
             'index' => Pages\ListProjects::route('/'),
-//            'create' => Pages\CreateProject::route('/create'),
-//            'edit' => Pages\EditProject::route('/{record}/edit'),
+            'create' => Pages\CreateProject::route('/create'),
+            'edit' => Pages\EditProject::route('/{record}/edit'),
         ];
     }
 }

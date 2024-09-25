@@ -15,15 +15,22 @@ class CategoriesTableSeeder extends Seeder
     {
         $categoriesRecord = [
             [
-                'name'=> 'blog',
-                'slug'=> 'blog',
+                'name'=> 'projects',
+                'slug'=> 'projects',
             ],
 
             [
-                'category_name'=> 'project',
-                'slug'=> 'project',
+                'name'=> 'publications',
+                'slug'=> 'publications',
+            ],
+
+            [
+                'name'=> 'GIS programs',
+                'slug'=> 'gis-programs',
             ]
             ];
+
+
 
             Category::insert($categoriesRecord);
     }

@@ -27,9 +27,7 @@ use App\Http\Controllers\Admin\AdminAuthorController;
 
 
 
-
 Route::fallback(FallbackController::class); //for routes/pages that don exist.
-//Auth::routes();
 
 /* --- BASIC(GUEST) PAGES --- */
 Route::prefix('/')->group(function () {
@@ -43,12 +41,12 @@ Route::prefix('/')->group(function () {
     // Routes for blog section
     Route::controller(BlogController::class)->group(function(){
         Route::get('/blog', 'index')->name('blog.index');
-        Route::get('/blog/{id}', 'showBlogPost')->name('blog.show');
+        Route::get('/blog/{blog:slug}', 'show')->name('blog.show');
     });
 
     Route::controller(ProjectController::class)->group(function(){
         Route::get('/projects', 'index')->name('projects.index');
-        Route::get('/projects/{id}', 'show')->name('projects.show');
+        Route::get('/projects/{project:slug}', 'show')->name('projects.show');
     });
 
     Route::get('/publications', PublicationController::class)->name('publications');
@@ -57,77 +55,8 @@ Route::prefix('/')->group(function () {
 });
 
 
-/* --- AUTHENICATED ROUTES FOR USER --- */
-Route::middleware(['auth', 'user-access:user'])->group(function () {
-
-    // User profile routes, logout route, dashboard home
-    Route::controller(HomeController::class)->group(function () {
-        Route::prefix('/user')->group(function () {
-            Route::get('/dashboard', 'index')->name('user.home');
-            Route::get('/logout', 'logout_user')->name('user.logout');
-            Route::get('/profile/{id}', 'userProfile')->name('user.profile');
-            Route::post('/profile/update/{id}',  'update')->name('user.profile_update');
-        });
-    });
-
-    // User blog routes
-    Route::controller(BlogController::class)->group(function () {
-        Route::prefix('/user/blog')->group(function () {
-            Route::get('/blog_posts',  'blogPosts')->name('user.allposts');
-            Route::get('/create', 'create')->name('blog.create');
-            Route::post('/store', 'store')->name('blog.store');
-            Route::get('/edit/{id}', 'edit')->name('blog.edit');
-            Route::patch('/{id}', 'update')->name('blog.update');
-            Route::delete('/{id}', 'destroy')->name('blog.delete');
-        });
-    });
-
-    //  Project Updates Routes
-    Route::controller(ProjectController::class)->group(function () {
-        Route::prefix('user/projects')->group(function(){
-            Route::get('/project_posts', 'allProjects')->name('user.allProjects');
-            Route::get('/create', 'create')->name('projects.create');
-            Route::post('/store', 'store')->name('projects.store');
-            Route::get('/edit/{int:id}', 'edit')->name('projects.edit');
-            Route::patch('/{id}', 'update')->name('projects.update');
-            Route::delete('/{id}', 'destroy')->name('projects.delete');
-        });
-
-        // Author routes
-    Route::controller(BlogController::class)->group(function () {
-        Route::prefix('/user/author')->group(function () {
-            // Route::get('/all_authors',  'allAuthors')->name('author.allAuthors');
-            Route::get('/create', 'create')->name('author.create');
-            // Route::post('/store', 'store')->name('author.store');
-            // Route::get('/edit/{id}', 'edit')->name('author.edit');
-            // Route::patch('/{id}', 'update')->name('author.update');
-            // Route::delete('/{id}', 'destroy')->name('author.delete');
-        });
-    });
 
 
-
-    });
-
-
-});//        Post::class=>PostPolicy::class
-
-
-
-//Admin Routes List (They are secured)
-/* --- AUTHENICATED ROUTES FOR USER --- */
-//Route::middleware(['auth', 'user-access:admin'])->group(function () {
-//    Route::get('/admin/home', [AdminController::class, 'home'])->name('admin.home');
-//    Route::get('/admin/logout', [AdminController::class, 'logout_admin'])->name('admin.logout');
-//
-//    Route::get('/admin/author/create', [AdminAuthorController::class, 'create'])->name('author.create');
-//    Route::post('/admin/author/store', [AdminAuthorController::class, 'store'])->name('author.store');
-//    Route::delete('/admin/author/{id}/destroy', [AdminAuthorController::class ,'destroy'])->name('author.delete');
-//
-//
-//
-//
-//});
 
 
 

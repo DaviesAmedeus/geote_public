@@ -16,18 +16,6 @@ class Post extends Model
     use HasFactory;
 
 
-    public static function validate($request){
-       return $request->validate([
-            'post_title'=>'required',
-            'post_intro'=>'required|max:500',
-            'status' => 'in:Completed,Inprogress,Pending',
-            'post_content'=>'required',
-            'post_picture' => [File::image()->dimensions(Rule::dimensions()->maxWidth(2000)->maxHeight(1200)),],
-
-
-        ]);
-    }
-
 
     public function user(): BelongsTo
     {

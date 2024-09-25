@@ -16,7 +16,6 @@ class EditBlog extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
-
     protected function mutateFormDataBeforeSave(array $data): array
     {
         // Ensure the user_id is assigned when saving or updating

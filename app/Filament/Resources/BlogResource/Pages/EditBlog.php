@@ -17,7 +17,6 @@ class EditBlog extends EditRecord
         ];
     }
 
-
     protected function mutateFormDataBeforeSave(array $data): array
     {
         // Ensure the user_id is assigned when saving or updating

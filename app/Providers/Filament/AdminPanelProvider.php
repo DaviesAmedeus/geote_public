@@ -45,13 +45,18 @@ class AdminPanelProvider extends PanelProvider
                 NavigationGroup::make()
                     ->label('Posts Management',)
                     ->icon('heroicon-o-newspaper')
-                    ->collapsible(false),
+                    ->collapsible(true),
                 NavigationGroup::make()
                     ->label('User Management',)
-                    ->icon('heroicon-o-user-group'),
+                    ->icon('heroicon-o-user-group')
+                    ->collapsible(false),
+                NavigationGroup::make()
+                    ->label('Blog Management',)
+                    ->icon('heroicon-o-pencil-square')
+                    ->collapsible(false),
                 NavigationGroup::make()
                     ->label('Settings',)
-                    ->icon('heroicon-o-cog-6-tooth')
+                    ->icon('heroicon-o-cog-6-tooth'),
 
             ])
 //            ->collapsibleNavigationGroups(false)

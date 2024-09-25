@@ -2,66 +2,68 @@
   <section id="blog" class="blog">
 
 
-  
+
   <!-- Landing section -->
   <x-slot:landing_section>
-    <x-landing-pages.landing-page 
+    <x-landing-pages.landing-page
       style="background-image: url('{{ asset('assets/img/landingpages_pics/projectpage4.jpg') }}');">
       Our Projects
     </x-landing-pages.landing-page>
   </x-slot:landing_section>
-  
+
     <div class="container" data-aos="fade-up" data-aos-delay="100">
       <div class="section-header">
         <h2>Our projects align with Global SDG's</h2>
         <p>Empowering youth to become agents of change through engagement.</p>
       </div>
-  
+
       <div class="row gy-4 posts-list">
-  
+
         @foreach ($projects as $project )
         <div class="col-xl-4 col-md-6">
           <div class="post-item position-relative h-100">
-  
+
             <div class="post-img position-relative overflow-hidden">
-              <img src="{{$project->post_picture ? asset($project->post_picture ) : asset('assets/img/blog/blog1.jpg') }}" class="img-fluid img-thumbnail" alt="">
-              <span class="post-date">{{ $project->status }}</span>
+              <img src="{{$project->image ?  'storage/'.$project->image  : asset('assets/img/blog/geote.png') }}" class="img-fluid img-thumbnail" alt="">
+{{--                <img src="{{$project->image ?  asset($project->image)  : asset('assets/img/blog/geote.png') }}" class="img-fluid img-thumbnail" alt="">--}}
+
+                <span class="post-date">{{ $project->status }}</span>
             </div>
-  
+
             <div class="post-content d-flex flex-column">
-  
-              <h3 class="post-title">{{ $project->post_title }}</h3>
-  
+
+              <h3 class="post-title">{{ $project->title }}</h3>
+
               <div class="meta d-flex align-items-center">
-                <div class="d-flex align-items-center">
-                  <i class="bi bi-person"></i> <span class="ps-2">Written by {{ $project->author->author_name ? $project->author->author_name  : $project->user->name}}</span>
-                </div>
+{{--                <div class="d-flex align-items-center">--}}
+{{--                  <i class="bi bi-person"></i> <span class="ps-2">Written by {{ $project->author->author_name ? $project->author->author_name  : $project->user->name}}</span>--}}
+{{--                </div>--}}
                 <span class="px-3 text-black-50">/</span>
                 <div class="d-flex align-items-center">
-                  <i class="bi bi-folder2"></i> <span class="ps-2">Blog</span>
+                  <i class="bi bi-folder2"></i> <span class="ps-2">Projects</span>
                 </div>
               </div>
-  
-              <p>{{ $project->post_intro }}</p>
-  
+
+              <p>{{ $project->description}}</p>
+
               <hr>
-  
-              <a href="{{ route('projects.show', ['id'=>$project->id]) }}" class="readmore stretched-link"><span>Project in detail</span><i class="bi bi-arrow-right"></i></a>
-                
+
+              <a href="{{ route('projects.show', $project) }}" class="readmore stretched-link"><span>Project in detail</span><i class="bi bi-arrow-right"></i></a>
+
             </div>
-  
+
           </div>
         </div><!-- End post list item -->
         @endforeach
-        
-  
+
+
         <div class="mt-3 p-3">
           {{ $projects->links()  }}
         </div>
-  
+
       </div><!-- End blog posts list -->
-  
-  
+
+
     </div>
   </section><!-- End Blog Section -->
 </x-layout>

@@ -14,7 +14,7 @@ class CreateProject extends CreateRecord
     {
         // Automatically assign the current authenticated user's ID before creating
         $data['user_id'] = auth()->id();
-        $data['category_id'] = 2;
+        $data['category_id'] = 1;
 
         return $data;
     }

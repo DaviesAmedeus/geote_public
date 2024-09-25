@@ -13,21 +13,52 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class ProjectResource extends Resource
 {
     protected static ?string $model = Post::class;
-    protected static ?string $navigationLabel = "Projects";
     protected static ?string $navigationGroup= 'Posts Management';
     protected static ?int $navigationSort =1;
 
+    protected static ?string $navigationLabel = 'Projects';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-check';
+    protected static ?string $modelLabel= 'Projects';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->where('category_id', 2); // Assuming "1" is the ID for "Blog"
+        // Get the current user
+        $user = Auth::user();
+
+        // Start building the query
+        $query = parent::getEloquentQuery()
+            ->where('category_id', 1); // Filter by category if needed
+
+        // If the user is not an admin, show only their posts
+        if (!$user->is_admin) {
+            $query->where('user_id', $user->id);
+        }
+
+        return $query;
+    }
+
+    public static function canView($record): bool
+    {
+        return auth()->user()->can('view', $record);
+    }
+
+    public static function canEdit($record): bool
+    {
+        return auth()->user()->can('update', $record);
+    }
+
+    public static function canDelete($record): bool
+    {
+        return auth()->user()->can('destroy', $record);
     }
 
     public static function form(Form $form): Form
@@ -39,9 +70,8 @@ class ProjectResource extends Resource
                         Forms\Components\TextInput::make('title')
                             ->label('Project Title')
                             ->required()
-                            ->maxLength(255)
-                            ->dehydrated()
-                            ->live()
+                            ->live(onBlur: true)
+                            ->unique(Post::class, 'title', ignoreRecord: true)
                             ->afterStateUpdated(function(string $operation, $state,
                                                          Forms\Set $set){
 //                                if($operation !== 'create'){
@@ -50,12 +80,6 @@ class ProjectResource extends Resource
                                 $set('slug', Str::slug($state));
                             })
                             ->columnSpanFull(),
-                        Forms\Components\Select::make('author_id')
-                            ->relationship('author', 'name')
-                            ->searchable()
-                            ->required()
-                            ->placeholder('Select author...')
-                            ->preload(),
                         Forms\Components\TextInput::make('category_id')
                             ->default(1)
                             ->hidden()// Automatically set to the authenticated user's ID
@@ -63,7 +87,8 @@ class ProjectResource extends Resource
 
                         Forms\Components\TextInput::make('slug')
                             ->disabled()
-                            ->maxLength(255)
+                            ->dehydrated()
+                            ->required()
                             ->unique(Post::class, 'slug', ignoreRecord: true),
 
                         Forms\Components\Textarea::make('description')
@@ -102,11 +127,6 @@ class ProjectResource extends Resource
                     ->searchable(isIndividual: true,isGlobal: false),
                 Tables\Columns\TextColumn::make('category.name')
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('author.name')
-                    ->label('Written by')
-                    ->searchable(isIndividual: true,isGlobal: false)
-                    ->sortable(),
-
                 Tables\Columns\TextColumn::make('status')
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
@@ -134,7 +154,6 @@ class ProjectResource extends Resource
                 ]),
             ]);
     }
-
     public static function getRelations(): array
     {
         return [
@@ -146,8 +165,8 @@ class ProjectResource extends Resource
     {
         return [
             'index' => Pages\ListProjects::route('/'),
-//            'create' => Pages\CreateProject::route('/create'),
-//            'edit' => Pages\EditProject::route('/{record}/edit'),
+            'create' => Pages\CreateProject::route('/create'),
+            'edit' => Pages\EditProject::route('/{record}/edit'),
         ];
     }
 }

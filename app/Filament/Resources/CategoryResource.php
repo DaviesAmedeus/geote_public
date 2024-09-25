@@ -12,13 +12,12 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Str;
 
 class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
-    protected static ?string $navigationLabel = "Post Category";
-    protected static ?string $navigationGroup= 'Posts Management';
+    protected static ?string $navigationLabel = "Post Categories";
+//    protected static ?string $navigationGroup= 'Posts Management';
     protected static ?int $navigationSort = 0;
     protected static ?string $navigationIcon = 'heroicon-o-tag';
 
@@ -88,9 +87,7 @@ class CategoryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCategories::route('/'),
-//            'create' => Pages\CreateCategory::route('/create'),
-//            'edit' => Pages\EditCategory::route('/{record}/edit'),
+            'index' => Pages\ManageCategories::route('/'),
         ];
     }
 }

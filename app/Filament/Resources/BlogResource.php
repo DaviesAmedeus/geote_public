@@ -17,20 +17,14 @@ use Illuminate\Support\Str;
 
 class BlogResource extends Resource
 {
-    protected static ?string $model = Post::class;
-    protected static ?string $navigationGroup= 'Posts Management';
+    protected static ?string $model = Blog::class;
+
+    protected static ?string $navigationGroup= 'Blog Management';
+//    protected static ?int $navigationSort =3;
+
     protected static ?string $navigationLabel = 'Blog';
-    protected static ?int $navigationSort =1;
-    protected static ?string $navigationIcon = 'heroicon-o-newspaper';
+    protected static ?string $navigationIcon = 'heroicon-o-pencil-square';
     protected static ?string $modelLabel= 'Blog posts';
-
-
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()->where('category_id', 1); // "1" is the ID for "Blog category"
-    }
-
-
 
     public static function form(Form $form): Form
     {
@@ -39,7 +33,7 @@ class BlogResource extends Resource
                 Forms\Components\Section::make()
                     ->schema([
                         Forms\Components\TextInput::make('title')
-                            ->label('Blog Title')
+                            ->label('Project Title')
                             ->required()
                             ->maxLength(255)
                             ->dehydrated()
@@ -52,42 +46,40 @@ class BlogResource extends Resource
                                 $set('slug', Str::slug($state));
                             })
                             ->columnSpanFull(),
-                        Forms\Components\Select::make('author_id')
-                            ->relationship('author', 'name')
-                            ->searchable()
-                            ->required()
-                            ->placeholder('Select author...')
-                            ->preload(),
                         Forms\Components\TextInput::make('category_id')
                             ->default(1)
-                        ->hidden()// Automatically set to the authenticated user's ID
-                        ,
+                            ->hidden(),// Automatically set to the authenticated user's ID
 
+                       Forms\Components\Select::make('author_id')
+                           ->relationship('author', 'name')
+                           ->placeholder('Select Author')
+                           ->searchable()
+                           ->preload()
+                           ->label(''),
                         Forms\Components\TextInput::make('slug')
+                            ->label('')
                             ->disabled()
                             ->maxLength(255)
-                            ->unique(Post::class, 'slug', ignoreRecord: true),
-
-                        Forms\Components\Textarea::make('description')
-                            ->placeholder('Briefly explain what the blog post is about...')
-                            ->columnSpanFull(),
+                            ->unique(Blog::class, 'slug', ignoreRecord: true),
                         Forms\Components\FileUpload::make('image')
+                            ->label('')
                             ->image()
                             ->columnSpanFull(),
                         Forms\Components\MarkdownEditor::make('body')
+                            ->label('')
+                            ->placeholder('Write here...')
                             ->required()
                             ->columnSpanFull(),
                     ])->columns(2),
 
 
-                Forms\Components\Section::make('SEO (For better ranking of this posts in search engines)')
+                Forms\Components\Section::make('SEO (For better ranking of this blog post in search engines)')
                     ->schema([
                         Forms\Components\TextInput::make('meta_title'),
                         Forms\Components\TextInput::make('meta_description')
                     ])->columns(2)
             ]);
     }
-
     public static function table(Table $table): Table
     {
         return $table
@@ -95,7 +87,7 @@ class BlogResource extends Resource
                 Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable()
-                    ->label('Blog Title')
+                    ->label('Project Title')
                     ->searchable(isIndividual: true, isGlobal: false),
                 Tables\Columns\TextColumn::make('slug')
                     ->searchable(isIndividual: true,isGlobal: false)
@@ -103,13 +95,11 @@ class BlogResource extends Resource
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Posted by')
                     ->searchable(isIndividual: true,isGlobal: false),
-                Tables\Columns\TextColumn::make('category.name')
-                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('author.name')
                     ->label('Written by')
-                    ->searchable(isIndividual: true,isGlobal: false)
-                    ->sortable(),
-
+                    ->searchable(isIndividual: true,isGlobal: false),
+                Tables\Columns\TextColumn::make('category.name')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('status')
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
@@ -130,7 +120,6 @@ class BlogResource extends Resource
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
                 ]),
-
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -146,13 +135,12 @@ class BlogResource extends Resource
         ];
     }
 
-
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListBlogs::route('/'),
-//            'create' => Pages\CreateBlog::route('/create'),
-//            'edit' => Pages\EditBlog::route('/{record}/edit'),
+            'create' => Pages\CreateBlog::route('/create'),
+            'edit' => Pages\EditBlog::route('/{record}/edit'),
         ];
     }
 }
