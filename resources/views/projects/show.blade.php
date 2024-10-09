@@ -22,7 +22,7 @@
           <article class="blog-details">
 
             <div class="post-img text-center">
-              <img src="{{ $project->image ?  '/storage/'.$project->image   : asset('assets/img/blog/geote.png') }}" alt="" class="img-fluid" width="800px" height="400px">
+              <img src="{{$project->image ? $project->image() : asset('assets/img/blog/blog1.jpg') }}" alt="" class="img-fluid" width="800px" height="400px">
             </div>
 
             <h2 class="title">{{ $project->title }}</h2>
@@ -42,11 +42,8 @@
           </article><!-- End blog post -->
         </div>
 
-
-
           <!-- SIDE BAR-->
-{{--          <x-posts-sidebar :blogposts="$blog_posts" :projects="$projects" />--}}
-
+          <x-sidebar />
 
 
       </div>

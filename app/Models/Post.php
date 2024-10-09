@@ -37,4 +37,14 @@ class Post extends Model
     {
         return $this->belongsTo(Writer::class);
     }
+
+    //    ----Other Methods ---
+    public function image()
+    {
+        if(str_starts_with($this->image, 'http')){
+            return $this->image;
+        }
+
+        return '/storage/'.$this->image;
+    }
 }

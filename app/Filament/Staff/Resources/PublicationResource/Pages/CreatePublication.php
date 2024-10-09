@@ -13,8 +13,6 @@ class CreatePublication extends CreateRecord
     {
         // Automatically assign the current authenticated user's ID before creating
         $data['user_id'] = auth()->id();
-        $data['category_id'] = 2;
-
         return $data;
     }
 }

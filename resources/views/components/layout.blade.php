@@ -27,7 +27,7 @@
   <link href="{{ url('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
   <link href="{{ url('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
 
-  
+
 
   <!-- Template Main CSS File -->
   <link href="{{ url('assets/css/main.css') }}" rel="stylesheet">
@@ -43,7 +43,7 @@
         <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
       <a href="{{ route('home') }}" class="logo d-flex align-items-center">
-        <img src="{{asset('assets/img/geote/geote-logo.png')}}" alt="">
+{{--        <img src="{{asset('assets/img/geote.png')}}" alt="">--}}
         <h1>GeoTE<span>.</span></h1>
       </a>
 
@@ -56,7 +56,7 @@
   </header><!-- End Header -->
 
 
-    {{-- Landing-section --}}
+  <!-- Landing-section -->
      {{ $landing_section }}
 
     <!-- start main -->
@@ -65,7 +65,7 @@
     </main>
     <!-- End #main -->
 
-  
+
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
 
@@ -94,26 +94,24 @@
           <div class="col-lg-2 col-md-3 footer-links">
             <h4>Useful Links</h4>
                 <ul>
-                  <li><a href="#">Home</a></li>
-                  <li><a href="#">About</a></li>
-                  <li><a href="#">Engagements</a></li>
-                  <li><a href="#">Projects</a></li>
-                  <li><a href="#">Blog</a></li>
-                  <li><a href="#">Contacts</a></li>
+                  <li><a href="{{route('home')}}">Home</a></li>
+                  <li><a href="{{route('about')}}">About</a></li>
+                  <li><a href="{{route('engagements')}}">Engagements</a></li>
+                  <li><a href="{{route('projects.index')}}">Projects</a></li>
+                  <li><a href="{{route('blog.index')}}">Blog</a></li>
+                    <li><a href="#">Publications</a></li>
                 </ul>
           </div><!-- End footer links column-->
 
           <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Our Engagements</h4>
+            <h4>Events</h4>
             <ul>
-              <li><a href="#">Training and capacity building</a></li>
-              <li><a href="#">Community sensitization</a></li>
-              <li><a href="#">Data Collection,Analysis, Visualization and Desseminations</a></li>
-              <li><a href="#">Community Mapping</a></li>
+              <li><a href="https://geospark.geote.org/">Geo Spark</a></li>
+                <li><a href="#">Practical Trainings</a></li>
+
             </ul>
+
           </div><!-- End footer links column-->
-
-
 
         </div>
       </div>
@@ -127,7 +125,7 @@
         <div class="credits">
           Designed by <a href="https://daviesamedeus.github.io/portifolio/">Davies Amedeus (koda.koda)</a>
         </div>
-      
+
 <!--        -->
       </div>
     </div>

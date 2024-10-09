@@ -55,7 +55,7 @@ class AdminPanelProvider extends PanelProvider
                     ->icon('heroicon-o-pencil-square')
                     ->collapsible(false),
                 NavigationGroup::make()
-                    ->label('Settings',)
+                    ->label('Site Settings',)
                     ->icon('heroicon-o-cog-6-tooth'),
 
             ])

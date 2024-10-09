@@ -28,10 +28,7 @@ class ProjectController extends Controller
     public function show(Post $project)
     {
 
-//        dd($project);
-        $project = Post::findOrFail($project->id);
-//            'blog_posts'=> Post::where('category_id', 1)->take(3)->latest()->get(),
-//            'projects'=> Post::where('category_id', 3)->take(3)->latest()->get(),
+
         return view('projects.show', compact('project'));
     }
 

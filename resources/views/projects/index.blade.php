@@ -20,46 +20,13 @@
       <div class="row gy-4 posts-list">
 
         @foreach ($projects as $project )
-        <div class="col-xl-4 col-md-6">
-          <div class="post-item position-relative h-100">
-
-            <div class="post-img position-relative overflow-hidden">
-              <img src="{{$project->image ?  'storage/'.$project->image  : asset('assets/img/blog/geote.png') }}" class="img-fluid img-thumbnail" alt="">
-{{--                <img src="{{$project->image ?  asset($project->image)  : asset('assets/img/blog/geote.png') }}" class="img-fluid img-thumbnail" alt="">--}}
-
-                <span class="post-date">{{ $project->status }}</span>
-            </div>
-
-            <div class="post-content d-flex flex-column">
-
-              <h3 class="post-title">{{ $project->title }}</h3>
-
-              <div class="meta d-flex align-items-center">
-{{--                <div class="d-flex align-items-center">--}}
-{{--                  <i class="bi bi-person"></i> <span class="ps-2">Written by {{ $project->author->author_name ? $project->author->author_name  : $project->user->name}}</span>--}}
-{{--                </div>--}}
-                <span class="px-3 text-black-50">/</span>
-                <div class="d-flex align-items-center">
-                  <i class="bi bi-folder2"></i> <span class="ps-2">Projects</span>
-                </div>
-              </div>
-
-              <p>{{ $project->description}}</p>
-
-              <hr>
-
-              <a href="{{ route('projects.show', $project) }}" class="readmore stretched-link"><span>Project in detail</span><i class="bi bi-arrow-right"></i></a>
-
-            </div>
-
-          </div>
-        </div><!-- End post list item -->
+        <x-projects.project-item :project="$project"/>
         @endforeach
 
 
-        <div class="mt-3 p-3">
-          {{ $projects->links()  }}
-        </div>
+            <div class="mt-3 p-3">
+                {{ $projects->links()  }}
+            </div>
 
       </div><!-- End blog posts list -->
 

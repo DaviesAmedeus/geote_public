@@ -42,7 +42,7 @@
                 <div class="post-author">
                     <h4 class="mb-3 text-muted">About the author</h4>
                     <div class=" d-flex align-items-center">
-                        <img src="{{'/storage/'.$blog->author->image}}" width="100px" height="100px" class="rounded-circle flex-shrink-0" alt="">
+                        <img src="{{$blog->image ? $blog->image() : asset('assets/img/blog/blog1.jpg') }}" width="100px" height="100px" class="rounded-circle flex-shrink-0" alt="">
                         <div>
                                               <h4>{{ $blog->author->name }}</h4>
                             <div class="social-links">
@@ -61,7 +61,7 @@
         </div>
 
             <!-- SIDE BAR-->
-{{--          <x-posts-sidebar :blogposts="$blog_posts" :projects="$projects" />--}}
+          <x-sidebar />
 
       </div>
 

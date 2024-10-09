@@ -21,13 +21,9 @@ class BlogController extends Controller
      * Display a listing of the resource.
      */
 
-    //  ALL BLOG POSTS
     public function index()
     {
-        // dd(Post::latest()->paginate(3));
-        // return view('blog.index')->with('posts', Post::latest()->paginate(2));
         $blogs = Blog::with('author')->latest()->paginate(6);
-//        dd($blogs);
         return view('blog.index',compact('blogs'));
 
     }
@@ -35,11 +31,6 @@ class BlogController extends Controller
 
     public function show(Blog $blog)
     {
-
-        $blog  =Blog::findOrFail($blog->id);
-//        dd($blog);
-//        'blog_posts'=> Post::where('category_id', 1)->take(3)->latest()->get(),
-//        'projects'=> Post::where('category_id', 3)->take(3)->latest()->get(),
       return view('blog.show', compact('blog'));
     }
 

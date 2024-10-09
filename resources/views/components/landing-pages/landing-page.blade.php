@@ -15,13 +15,13 @@
   </div>
 
   <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
-    <div class="carousel-item active" style="background-image: url({{ asset('assets/img/landingpages_pics/slide_pics/slide0.jpg') }})"></div> 
+    <div class="carousel-item active" style="background-image: url({{ asset('assets/img/landingpages_pics/slide_pics/slide0.jpg') }})"></div>
     <div class="carousel-item" style="background-image: url({{ asset('assets/img/landingpages_pics/slide_pics/slide5.jpg') }})"></div>
     <div class="carousel-item" style="background-image: url({{ asset('assets/img/landingpages_pics/slide_pics/slide1.JPG') }})"></div>
     <div class="carousel-item" style="background-image: url({{ asset('assets/img/landingpages_pics/slide_pics/slide2.jpg') }})"></div>
     <div class="carousel-item" style="background-image: url({{ asset('assets/img/landingpages_pics/slide_pics/slide3.jpg') }})"></div>
     <div class="carousel-item" style="background-image: url({{ asset('assets/img/landingpages_pics/slide_pics/slide4.jpg') }})"></div>
-    
+
 
     <a class="carousel-control-prev" href="#hero-carousel" role="button" data-bs-slide="prev">
       <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
@@ -36,17 +36,16 @@
 </section><!-- End Hero Section -->
 
 @else
-<div {{ $attributes(['class'=>'breadcrumbs d-flex align-items-center'])}}>
+<div {{ $attributes->merge(['class'=>'breadcrumbs d-flex align-items-center'])}}>
     <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
       <h2>{{ $slot }}</h2>
     </div>
   </div>
 @endif
 
-    
-  
-  
- 
 
 
-  
+
+
+
+
