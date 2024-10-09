@@ -8,16 +8,16 @@ class BasicsController extends Controller
 {
     public function index()
     {
-        return view('basic_pages.index');
+        return view('home.index');
     }
 
     public function about()
     {
-        return view('basic_pages.about');
+        return view('home.about');
     }
 
     public function engagements()
     {
-        return view('basic_pages.engagements');
+        return view('home.engagements');
     }
 }

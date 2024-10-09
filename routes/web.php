@@ -27,10 +27,7 @@ use App\Http\Controllers\Admin\AdminAuthorController;
 
 
 
-Route::fallback(FallbackController::class); //for routes/pages that don exist.
-
-/* --- BASIC(GUEST) PAGES --- */
-Route::prefix('/')->group(function () {
+    Route::fallback(FallbackController::class); //for routes/pages that don exist.
 
     Route::controller(BasicsController::class)->group(function(){
         Route::get('/',  'index')->name('home');
@@ -38,12 +35,13 @@ Route::prefix('/')->group(function () {
         Route::get('/engagements',  'engagements')->name('engagements');
     });
 
-    // Routes for blog section
+    // Routes for blog posts
     Route::controller(BlogController::class)->group(function(){
         Route::get('/blog', 'index')->name('blog.index');
         Route::get('/blog/{blog:slug}', 'show')->name('blog.show');
     });
 
+    // Routes for blog posts
     Route::controller(ProjectController::class)->group(function(){
         Route::get('/projects', 'index')->name('projects.index');
         Route::get('/projects/{project:slug}', 'show')->name('projects.show');
@@ -52,7 +50,7 @@ Route::prefix('/')->group(function () {
     Route::get('/publications', PublicationController::class)->name('publications');
 
 
-});
+
 
 
 

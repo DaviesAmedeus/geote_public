@@ -3,7 +3,6 @@
 
         <div class="post-img position-relative overflow-hidden">
             <img src="{{$project->image ? $project->image() : asset('assets/img/blog/blog1.jpg') }}" class="img-fluid img-thumbnail" alt="">
-            {{--                <img src="{{$project->image ?  asset($project->image)  : asset('assets/img/blog/geote.png') }}" class="img-fluid img-thumbnail" alt="">--}}
 
             <span class="post-date">{{ $project->status }}</span>
         </div>
