@@ -1,18 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
-use App\Http\Controllers\FoodController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BasicsController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\FallbackController;
-use App\Http\Controllers\User\UserController;
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\NewsUpdatesController;
 use App\Http\Controllers\PublicationController;
-use App\Http\Controllers\Admin\AdminAuthorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,42 +19,36 @@ use App\Http\Controllers\Admin\AdminAuthorController;
 |
 */
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-    Route::fallback(FallbackController::class); //for routes/pages that don exist.
+require __DIR__.'/auth.php';
 
-    Route::controller(BasicsController::class)->group(function(){
-        Route::get('/',  'index')->name('home');
-        Route::get('/about','about')->name('about');
-        Route::get('/engagements',  'engagements')->name('engagements');
-    });
+Route::fallback(FallbackController::class); //for routes/pages that don exist.
 
-    // Routes for blog posts
-    Route::controller(BlogController::class)->group(function(){
-        Route::get('/blog', 'index')->name('blog.index');
-        Route::get('/blog/{blog:slug}', 'show')->name('blog.show');
-    });
+Route::controller(BasicsController::class)->group(function(){
+    Route::get('/',  'index')->name('home');
+    Route::get('/about','about')->name('about');
+    Route::get('/engagements',  'engagements')->name('engagements');
+});
 
-    // Routes for blog posts
-    Route::controller(ProjectController::class)->group(function(){
-        Route::get('/projects', 'index')->name('projects.index');
-        Route::get('/projects/{project:slug}', 'show')->name('projects.show');
-    });
+// Routes for blog posts
+Route::controller(BlogController::class)->group(function(){
+    Route::get('/blog', 'index')->name('blog.index');
+    Route::get('/blog/{blog:slug}', 'show')->name('blog.show');
+});
 
-    Route::get('/publications', PublicationController::class)->name('publications');
+// Routes for blog posts
+Route::controller(ProjectController::class)->group(function(){
+    Route::get('/projects', 'index')->name('projects.index');
+    Route::get('/projects/{project:slug}', 'show')->name('projects.show');
+});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Route::get('/publications', PublicationController::class)->name('publications');

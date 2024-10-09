@@ -8,6 +8,6 @@ class FallbackController extends Controller
 {
     public function __invoke()
     {
-        return view('basic_pages.about');
+        return view('home.about');
     }
 }

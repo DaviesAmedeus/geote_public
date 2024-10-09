@@ -27,14 +27,13 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ->id('admin')
-            ->path('dashboard')
+            ->path('/admin/dashboard')
             ->userMenuItems([
                 MenuItem::make()
                     ->label('Dashboard')
                     ->icon('heroicon-o-cog-6-tooth')
                     ->url('/staff')
             ])
-            ->login()
             ->colors([
                 'primary' => Color::Amber,
             ])
