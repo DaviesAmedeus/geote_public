@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Hash;
+use Spatie\Permission\Models\Role;
 
 class UsersTableSeeder extends Seeder
 {
@@ -15,27 +16,30 @@ class UsersTableSeeder extends Seeder
     public function run(): void
     {
 
-        $usersRecords = [
-            // user
-            [
-                'name'=> 'Staff',
-                'email'=> 'staff@staff.com',
-                'password'=> bcrypt('123456'),
-                'is_admin'=> 0,
 
-            ],
+        //Declaring the Users
+        $adminUser =User::factory()->create([
+            'name'=> 'Admin',
+            'email'=> 'admin@example.com',
+            'password'=> bcrypt('123456'),
+            'is_admin'=> 1,
+        ]);
+        $staffUser =User::factory()->create([
+            'name'=> 'Staff',
+            'email'=> 'staff@staff.com',
+            'password'=> bcrypt('123456'),
+            'is_admin'=> 0,
+        ]);
 
-            // Admin
-            [
-                'name'=> 'Admin',
-                'email'=> 'admin@example.com',
-                'password'=> bcrypt('123456'),
-                'is_admin'=> 1,
+        //Declaring the roles
+        $adminRole = Role::create(['name' => 'admin']);
+        $staffRole = Role::create(['name' => 'staff']);
 
-            ]
-        ];
+        //Assigning the roles to Users
+        $adminUser->assignRole($adminRole);
+        $staffUser->assignRole($staffRole);
 
-        User::insert($usersRecords);
+
     }
 }
 

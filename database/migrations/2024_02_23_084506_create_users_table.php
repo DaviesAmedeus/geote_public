@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('profile_pic')
                 ->nullable();
             $table->boolean('is_admin')
-                ->default(0)
-                ->comment('0=>Staff, 1=>Admin etc');
+                ->default(2)
+                ->comment('0=>Staff, 1=>Admin 2=>Regular etc');
             $table->timestamps();
         });
     }

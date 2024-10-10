@@ -3,7 +3,7 @@
    <!-- Landing section -->
    <x-slot:landing_section>
     <x-landing-pages.landing-page
-      style="background-image: url('{{ asset('assets/img/landingpages_pics/blogpage.jpg') }}');">
+      style="background-image: url('{{ asset('assets/img/landingpages_pics/publications.jpg') }}');">
       GeoTE publications
     </x-landing-pages.landing-page>
   </x-slot:landing_section>
